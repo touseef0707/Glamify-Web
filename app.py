@@ -1,5 +1,6 @@
 from flask import Flask, render_template
-from dictionary_dataset import dataset
+from helpers.dictionary_dataset import dataset
+
 import random
 
 app = Flask(__name__)
