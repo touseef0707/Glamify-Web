@@ -1,0 +1,250 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+    <link rel="stylesheet" href="static/css/home.css">
+</head>
+<body>
+
+    <section id="header" class="section-p1">
+        <a href="/"><img src="static/images/logos/logo.png" alt="logo" class="logo"></a>
+
+        <div>
+            <ul id="navbar">
+                <li><a class="active" href="/">Home</a></li>
+                <li><a href="/store">Store</a></li>                
+                <li><a href="/about">About</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><a href="/cart"><i class="fa-solid fa-bag-shopping" style="color: #63E6BE;"></i></a></li>
+                <li><a href="/signin"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
+            </ul>
+        </div>
+
+    </section>
+
+    <section id="container-one" class="section-p1">
+        <div>
+            <h4>Trade-in-offer</h4>
+            <h2>Super value deals</h2>
+            <h1>On all products</h1>
+            <p>Save more with coupons & up to 70% off!</p>
+            <button class="button" style="vertical-align:middle"><span>Shop Now</span></button>
+
+        </div>
+    </section>
+
+    <section id="features" class="section-p1">
+
+        <div class="fe-box">
+            <img src="/static/images/illustrations/collections.png" alt="Great Collections">
+            <h5>Great Collections</h5>
+        </div>
+
+        <div class="fe-box">
+            <img src="/static/images/illustrations/deals.png" alt="Amazing Deals">
+            <h5>Amazing Deals</h5>
+        </div>
+
+        <div class="fe-box">
+            <img src="/static/images/illustrations/delivery.png"  alt="Free and Fast Shipping">
+            <h5>Free and Fast Shipping</h5>
+        </div>
+        
+        <div class="fe-box">
+            <img src="/static/images/illustrations/services.png" alt="Customer Support 24/7<">
+            <h5>Customer Support 24/7</h5>
+        </div>
+
+        <div class="fe-box">
+            <img src="/static/images/illustrations/reviews.png" alt="Great Reviews">
+            <h5>Reviews</h5>
+        </div>
+
+    </section>
+
+    <section id="fe-products" class="section-p1">
+        <h2>Featured Products</h2>
+        <p>Brand New Collections with Aesthetic Designs</p>
+        
+        <div class="products-container">
+            {% for item in fe_items %}
+                <div class="product">
+                    <img src="{{ item.link }}" alt="product">
+                    <div class="description">
+                        <span>{{item.masterCategory}} / {{item.subCategory}}</span>
+                        <h5>{{ item.productDisplayName }}</h5>
+                        <div class="stars">
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                        </div>
+                        <h4>AED {{ item.price }}</h4>
+                    </div>
+                    <a class = "cart" href="#"><i class="fa-solid fa-cart-shopping" style="color: #096c74;"></i></a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    
+    <section id="container-two" class="section-p1">
+        <h4>Repair Services</h4>
+        <h2>Upto <span>70% Off</span> - All t-shirts & accessories</h2>
+        <button class="button" style="vertical-align:middle"><span>Explore More</span></button>
+    </section>
+
+    <section id="new-products" class="section-p1">
+        <h2>New Arrivals</h2>
+        <p>Explore some of the Latest in-Store</p>
+        
+        <div class="products-container">
+            {% for item in new_items %}
+                <div class="product">
+                    <img src="{{ item.link }}" alt="product">
+                    <div class="description">
+                        <span>{{item.masterCategory}} / {{item.subCategory}}</span>
+                        <h5>{{ item.productDisplayName }}</h5>
+                        <div class="stars">
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                        </div>
+                        <h4>AED {{ item.price }}</h4>
+                    </div>
+                    <a class = "cart" href="#"><i class="fa-solid fa-cart-shopping" style="color: #096c74;"></i></a>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+    
+    <section id="container-three" class="section-p1">
+        <div class="banner-box">
+            <h4>Crazy Deals</h4>
+            <h2>Buy 2 Get 1 Free</h2>
+            <span>The best classic dress is on sale at Glamify</span>
+            <button class="button" style="vertical-align:middle"><span>Learn More</span></button>
+        </div>
+        <div class="banner-box">
+            <h4>Spring / Summer</h4>
+            <h2>Upcoming Season</h2>
+            <span>Explore the latest collection for the upcoming season</span>
+            <button class="button" style="vertical-align:middle"><span>Collection</span></button>
+        </div>
+    </section>
+
+    <section id="container-four" class="section-p1">
+        <div class="banner-box">
+            <h2>Buy 2 Get 1 Free</h2>
+            <span>The best classic dress is on sale at Glamify</span>
+        </div>
+
+        <div class="banner-box">
+            <h2>Buy 2 Get 1 Free</h2>
+            <span>The best classic dress is on sale at Glamify</span>
+        </div>
+
+        <div class="banner-box">
+            <h2>Buy 2 Get 1 Free</h2>
+            <span>The best classic dress is on sale at Glamify</span>
+        </div>
+    </section>
+
+    <section id="newsletter" class="section-p1 section-m1">
+        <div>
+            <h2>Subscribe to our Newsletter</h2>
+            <p>Get the latest updates on new products and upcoming sales</p>
+        </div>
+        <form action="">
+            <input type="email" placeholder="Enter your email">
+            <button class="button" style="vertical-align:middle"><span>Subscribe</span></button>
+        </form>
+    </section>
+
+    <footer class="section-p1">
+        <div class="logo">
+            <a href="/"><img src="static/images/logos/logo.png" alt="logo" class="logo"></a>
+        </div>
+
+        <div class="footer-column">
+            <div class="address">
+                <h4>Contact</h4>
+                <p><strong>Address: </strong> 1234 Baskin-Street, Sharjah, United Arab Emirates</p>
+                <p><strong>Phone: </strong> +971 522 774 769</p>
+                <p><strong>Email: </strong> touseefahmed0707@gmail.com</p>
+                <p><strong>Hours: </strong> 8:00am - 12:00pm</p>
+            </div>
+    
+            <div class="socials">
+                <h4>Follow Us</h4>
+                <div class="icon-links">
+                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f" style="color: aquamarine;"></i></a>
+                    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter" style="color: aquamarine;"></i></a>
+                    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram" style="color: aquamarine;"></i></a>
+                    <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in" style="color: aquamarine;"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-column">
+            <h4>About</h4>
+            <ul>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="#">Delivery Information</a></li>
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms & Conditions</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>My Account</h4>
+            <ul>
+                <li><a href="profile.html">Sign in</a></li>
+                <li><a href="cart.html">Shopping Cart</a></li>
+                <li><a href="#">Order History</a></li>
+                <li><a href="#">Wishlist</a></li>
+                <li><a href="#">Help</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h4>Install App</h4>
+            <h5>From App Store or Google Play</h5>
+            <div class="icon-links">
+                <div class="icon-box">
+                    <a href="#"><i class="fab fa-apple" style="color: aquamarine;"></i></a>
+                    <p>Download in the App Store</p>
+                </div>
+                
+                <div class="icon-box">
+                    <a href="#"><i class="fab fa-google-play" style="color: aquamarine;"></i></a>
+                    <p>Get in on PlayStore</p>
+                </div>
+            </div>
+            <h5>Secured Payment Gateways</h5>
+            <div class="icon-links">
+                <a href="#"><i class="fab fa-cc-visa" style="color: aquamarine;"></i></a>
+                <a href="#"><i class="fab fa-cc-mastercard" style="color: aquamarine;"></i></a>
+                <a href="#"><i class="fab fa-cc-paypal" style="color: aquamarine;"></i></a>
+            </div>
+        </div>
+    </footer>
+    
+    <section id="copyright">
+        <p>&copy; 2021 Glamify. All Rights Reserved</p>
+    </section>
+
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <script src="static/js/home.js"></script>
+    <script src="https://kit.fontawesome.com/a1597cdc8f.js" crossorigin="anonymous"></script>
+</body>
+</html>

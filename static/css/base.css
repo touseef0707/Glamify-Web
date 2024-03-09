@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1{
+    font-size: var(--text-4xl);
+    color: #222;
+    margin: 20px 0;
+}
+
+h2{
+    font-size: var(--text-3xl);
+}
+
+h4{
+    font-size: var(--text-lg);
+    color: #222;
+}
+
+p{
+    font-size: var(--text-base);
+    margin: 15px 0 20px 0;
+    color: #222;
+}
