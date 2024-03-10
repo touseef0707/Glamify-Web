@@ -73,20 +73,21 @@
         <div class="products-container">
             {% for item in fe_items %}
                 <div class="product">
-                    <img src="{{ item.link }}" alt="product">
-                    <div class="description">
-                        <span>{{item.masterCategory}} / {{item.subCategory}}</span>
-                        <h5>{{ item.productDisplayName }}</h5>
-                        <div class="stars">
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <a href="{{url_for('product', gender=item.gender, item_id=item.id)}}" class="enclosed">
+                        <img src="{{ item.link }}" alt="product">
+                        <div class="description">
+                            <span>{{item.masterCategory}} / {{item.subCategory}}</span>
+                            <h5>{{ item.productDisplayName }}</h5>
+                            <div class="stars">
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            </div>
+                            <h4>AED {{ item.price }}</h4>
                         </div>
-                        <h4>AED {{ item.price }}</h4>
-                    </div>
-                    <a class = "cart" href="#"><i class="fa-solid fa-cart-shopping" style="color: #096c74;"></i></a>
+                    </a>
                 </div>
             {% endfor %}
         </div>
@@ -105,20 +106,21 @@
         <div class="products-container">
             {% for item in new_items %}
                 <div class="product">
-                    <img src="{{ item.link }}" alt="product">
-                    <div class="description">
-                        <span>{{item.masterCategory}} / {{item.subCategory}}</span>
-                        <h5>{{ item.productDisplayName }}</h5>
-                        <div class="stars">
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <a href="{{url_for('product', gender=item.gender, item_id=item.id)}}" class="enclosed">
+                        <img src="{{ item.link }}" alt="product">
+                        <div class="description">
+                            <span>{{item.masterCategory}} / {{item.subCategory}}</span>
+                            <h5>{{ item.productDisplayName }}</h5>
+                            <div class="stars">
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            </div>
+                            <h4>AED {{ item.price }}</h4>
                         </div>
-                        <h4>AED {{ item.price }}</h4>
-                    </div>
-                    <a class = "cart" href="#"><i class="fa-solid fa-cart-shopping" style="color: #096c74;"></i></a>
+                    </a>
                 </div>
             {% endfor %}
         </div>

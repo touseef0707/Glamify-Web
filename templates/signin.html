@@ -15,38 +15,52 @@
         <div>
             <ul id="navbar">
                 <li><a href="/">Home</a></li>
-                <li><a class="active" href="/store">Store</a></li>                
+                <li><a href="/store">Store</a></li>                
                 <li><a href="/about">About</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="/cart.html"><i class="fa-solid fa-bag-shopping" style="color: #63E6BE;"></i></a></li>
-                <li><a href="/signin"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
+                <li><a href="/cart"><i class="fa-solid fa-bag-shopping" style="color: #63E6BE;"></i></a></li>
+                <li><a class="active" href="/signin"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
             </ul>
         </div>
     </section>
     
     <!-- Add the Section for forms here -->
     <!-- Login Form -->
-    <section id="login-form" class="section-p1">
+    <section id="login-form" class="section-p1 log">
         <h2>Login</h2>
-        <form action="/login" method="post">
+        <form action="/login" method="post" id="loginForm">
             <!-- Add your login form fields here -->
-            <input type="text" name="username" placeholder="Username">
-            <input type="password" name="password" placeholder="Password">
+            <input type="text" name="username" id="loginUsername" placeholder="Username" required>
+            <input type="password" name="password" id="loginPassword" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
+        <p class="toggle-form">Don't have an account? <a href="#" id="toggleRegister">Register</a></p>
     </section>
-
+    
     <!-- Registration Form -->
-    <section id="registration-form" class="section-p1">
+    <section id="registration-form" class="section-p1 log">
         <h2>Register</h2>
-        <form action="/register" method="post">
+        <form action="/register" method="post" id="registerForm">
             <!-- Add your registration form fields here -->
-            <input type="text" name="username" placeholder="Username">
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Password">
+            <div class="names">
+                <input type="text" name="firstname" id="registerFirstname" placeholder="First Name" required>
+                <input type="text" name="lastname" id="registerLastname" placeholder="Last Name" required>
+            </div>
+            <div class="dob-inputs">
+                <input type="number" name="dob-day" id="dobDay" placeholder="Day" min="1" max="31" required>
+                <input type="number" name="dob-month" id="dobMonth" placeholder="Month" min="1" max="12" required>
+                <input type="number" name="dob-year" id="dobYear" placeholder="Year" min="1900" max="2024" required>
+            </div>
+            <input type="email" name="email" id="registerEmail" placeholder="Email" required>
+            <input type="tel" name="phone" id="registerPhone" placeholder="Phone Number" required>
+            <input type="text" name="location" id="registerLocation" placeholder="Location" required>
+            <input type="text" name="username" id="registerUsername" placeholder="Username" required>
+            <input type="password" name="password" id="registerPassword" placeholder="Password" required>
             <button type="submit">Register</button>
         </form>
+        <p class="toggle-form">Already have an account? <a href="#" id="toggleLogin">Login</a></p>
     </section>
+    
 
     <section id="newsletter" class="section-p1 section-m1">
         <div>
@@ -136,7 +150,7 @@
         {% block content %}{% endblock %}
     </div>
 
-    <!-- <script src="static/js/home.js"></script> -->
+    <script src="static/js/home.js"></script>
     <script src="https://kit.fontawesome.com/a1597cdc8f.js" crossorigin="anonymous"></script>
 </body>
 </html>
