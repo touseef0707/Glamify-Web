@@ -29,9 +29,8 @@
     <section id="login-form" class="section-p1 log">
         <h2>Login</h2>
         <form action="/login" method="post" id="loginForm">
-            <!-- Add your login form fields here -->
-            <input type="text" name="username" id="loginUsername" placeholder="Username" required>
-            <input type="password" name="password" id="loginPassword" placeholder="Password" required>
+            {{ form_log.username(placeholder="Username") }}
+            {{ form_log.password(placeholder="Password") }}
             <button type="submit">Login</button>
         </form>
         <p class="toggle-form">Don't have an account? <a href="#" id="toggleRegister">Register</a></p>
@@ -43,19 +42,17 @@
         <form action="/register" method="post" id="registerForm">
             <!-- Add your registration form fields here -->
             <div class="names">
-                <input type="text" name="firstname" id="registerFirstname" placeholder="First Name" required>
-                <input type="text" name="lastname" id="registerLastname" placeholder="Last Name" required>
+                {{ form_reg.first_name(placeholder=form_reg.first_name.label.text) }}
+                {{ form_reg.last_name(placeholder=form_reg.last_name.label.text) }}
             </div>
-            <div class="dob-inputs">
-                <input type="number" name="dob-day" id="dobDay" placeholder="Day" min="1" max="31" required>
-                <input type="number" name="dob-month" id="dobMonth" placeholder="Month" min="1" max="12" required>
-                <input type="number" name="dob-year" id="dobYear" placeholder="Year" min="1900" max="2024" required>
-            </div>
-            <input type="email" name="email" id="registerEmail" placeholder="Email" required>
-            <input type="tel" name="phone" id="registerPhone" placeholder="Phone Number" required>
-            <input type="text" name="location" id="registerLocation" placeholder="Location" required>
-            <input type="text" name="username" id="registerUsername" placeholder="Username" required>
-            <input type="password" name="password" id="registerPassword" placeholder="Password" required>
+            {{ form_reg.dob(placeholder=form_reg.dob.label.text)}}
+            {{ form_reg.email( placeholder=form_reg.email.label.text) }}
+            {{ form_reg.phone( placeholder=form_reg.phone.label.text) }}
+            {{ form_reg.location( placeholder=form_reg.location.label.text) }}
+            {{ form_reg.username( placeholder=form_reg.username.label.text) }}
+            {{ form_reg.password( placeholder=form_reg.password.label.text) }}
+            {{ form_reg.confirm_password( placeholder=form_reg.confirm_password.label.text) }}
+
             <button type="submit">Register</button>
         </form>
         <p class="toggle-form">Already have an account? <a href="#" id="toggleLogin">Login</a></p>

@@ -53,13 +53,13 @@
                             <th scope="row">{{i+1}}</th>
                             <td><img src="static/images/models/modelone.jpg" alt="Product 1"></td>
                             <td><h3>Product Name {{i+1}}</h3></td>
-                            <td><p>$10</p></td>
+                            <td><p>$10.00</p></td>
                             <td>
                                 <button class="decrement-quantity-btn" onclick="decrementQuantity(this)">-</button>
                                 <span class="quantity">1</span>
                                 <button class="increment-quantity-btn" onclick="incrementQuantity(this)">+</button>
                             </td>
-                            <td><p>$10</p></td>
+                            <td><p>$10.00</p></td>
                             <td><button class="remove-item-btn" onclick="removeCartItem(this)"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>
                     {% endfor %}
@@ -71,9 +71,9 @@
         <div class="cart-total">
             <h3>Total</h3>
             <h4>Items: 3</h4>
-            <h4>Subtotal: $30</h4>
-            <h4>Tax: $3</h4>
-            <h4>Total: $33</h4>
+            <h4>Subtotal: $30.00</h4>
+            <h4>Tax: $3.00</h4>
+            <h4>Total: $33.00</h4>
             <button class="checkout-btn">Checkout</button>
         </div>
     </section>

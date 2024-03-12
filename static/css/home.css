@@ -1155,6 +1155,7 @@ button[type="submit"]:hover {
 .log input[type="email"],
 .log input[type="password"],
 .log input[type="tel"],
+.log input[type="date"],
 .log button {
     display: block;
     width: 100%;
@@ -1243,11 +1244,11 @@ button[type="submit"]:hover {
 }
 
 .remove-item-btn:hover {
-    background-color: #cc473d; /* Darker shade of red on hover */
+    background-color: #cc473d; 
 }
 
 .remove-item-btn i {
-    font-size: 16px; /* Adjust the icon size */
+    font-size: 16px; 
 }
 
 .cart-total {
@@ -1268,7 +1269,7 @@ button[type="submit"]:hover {
 }
 
 .checkout-btn {
-    background-color: #4CAF50;
+    background-color: var(--color-4);
     color: white;
     padding: 10px 20px;
     border: none;
@@ -1278,5 +1279,5 @@ button[type="submit"]:hover {
 }
 
 .checkout-btn:hover {
-    background-color: #45a049;
+    background-color: var(--color-6);
 }

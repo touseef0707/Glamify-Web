@@ -1,0 +1,23 @@
+from flask_wtf import FlaskForm, RecaptchaField
+from wtforms import StringField, PasswordField, DateField
+from wtforms.validators import DataRequired, Email, EqualTo, Length, Regexp
+import datetime
+# Organization registration form
+class RegistrationForm(FlaskForm):
+    first_name = StringField('First Name', validators=[DataRequired(), Length(min=2, max=20)])
+    last_name = StringField('Last Name', validators=[DataRequired(), Length(min=2, max=20)])
+    dob = DateField('Date of Birth', format='%Y-%m-%d', validators=[DataRequired()])
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    phone = StringField('Phone', validators=[DataRequired(), Regexp(r'^\+?\d{8,15}$', message="Invalid phone number")])
+    location = StringField('Street Address', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired(), Length(min=4, max=20)])
+    password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('Password', message='Passwords must match')])
+
+    recaptcha = RecaptchaField()
+
+class LoginForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+
+    recaptcha = RecaptchaField()
