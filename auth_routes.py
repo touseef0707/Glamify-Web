@@ -34,7 +34,8 @@ def auth_register():
     form_reg = RegistrationForm()
     print(form_reg.errors)
     print(form_reg.validate_on_submit())
-    print(form_reg.first_name.data, form_reg.last_name.data, form_reg.dob.data, form_reg.email.data, form_reg.phone.data, form_reg.location.data, form_reg.username.data, form_reg.password.data, form_reg.confirm_password.data)
+    print(form_reg.validate())
+    print(form_reg.first_name.data, form_reg.last_name.data, form_reg.dob.data, form_reg.email.data, form_reg.phone.data, form_reg.location.data, form_reg.username.data, form_reg.password.data)
     if form_reg.validate_on_submit():
         print("validated")
         try:

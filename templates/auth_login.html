@@ -30,6 +30,7 @@
     <section id="login-form" class="section-p1 log">
         <h2>Login</h2>
         <form method="post" id="loginForm">
+            {{ csrf_token }}
             {{ form_log.username(placeholder="Username") }}
             {{ form_log.password(placeholder="Password") }}
             <!-- {{ form_log.recaptcha }} -->
