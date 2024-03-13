@@ -24,7 +24,7 @@ pyre_auth = firebase.auth()
 
 from flask import Blueprint, render_template, redirect, url_for, flash, session
 from auth_forms import RegistrationForm, LoginForm
-from fb_operations import register_user, login_user
+from firebase_ops import register_user, login_user
 
 auth_blueprint = Blueprint('auth', __name__, static_folder='static', template_folder='templates')
 
