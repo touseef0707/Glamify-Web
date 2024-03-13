@@ -13,11 +13,9 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=4, max=20)])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=8)])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('Password', message='Passwords must match')])
-
-    recaptcha = RecaptchaField()
+    # recaptcha = RecaptchaField()
 
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
-
-    recaptcha = RecaptchaField()
+    # recaptcha = RecaptchaField()

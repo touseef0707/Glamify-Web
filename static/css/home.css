@@ -1107,7 +1107,7 @@ button[type="submit"]:hover {
 /* Login Or Registration Page */
 
 .log{
-    max-width: 300px;
+    max-width: fit-content;
     margin: 40px auto;
     text-align: center;
     padding: 20px;
@@ -1170,9 +1170,9 @@ button[type="submit"]:hover {
     font-size: 14px;
 }
 
-#registration-form {
+/* #registration-form {
     display: none;
-}
+} */
 
 
 /* Cart Page */
@@ -1280,4 +1280,8 @@ button[type="submit"]:hover {
 
 .checkout-btn:hover {
     background-color: var(--color-6);
+}
+
+body .signinhtml{
+    background-image: url("https://source.unsplash.com/2000x200/?business");
 }

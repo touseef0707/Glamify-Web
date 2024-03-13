@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from helpers.dictionary_dataset import dataset
 from auth_forms import RegistrationForm, LoginForm
 from auth_routes import auth_blueprint
+import flask_recaptcha
 import random
 
 import firebase_admin
@@ -14,10 +15,10 @@ app.register_blueprint(auth_blueprint)
 # Applying configuration of flask    ---To be kept secret---
 app.config['SECRET_KEY'] = 'Aaposi@234#*Joids9J89#&^Bvbiux/Biubc8*7'
 app.config['RECAPTCHA_ENABLED'] = True
-app.config['RECAPTCHA_PUBLIC_KEY'] = '5ids9J89#&^Bvbiux/BiubcvD3V5FfJGv4Z3YDp2YzK9wv'   
-app.config['RECAPTCHA_PRIVATE_KEY'] = '6Ld5JZgUAAAAAExy5vD3V5FfJGv4Z3YDp2YzK9wv'
+app.config['RECAPTCHA_PUBLIC_KEY'] = '6Lc24ZUpAAAAAMHqBwt9tGgzCiJClilX0WejJvZH'   
+app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lc24ZUpAAAAAGyH1juh5bLhxcnxLuuaF6EP70xx'
 app.config['RECAPTCHA_TABINDEX'] = 1
-app.config['RECAPTCHA_DATA_ATTRS'] = {'theme': 'dark', 'size': 'compact'}
+app.config['RECAPTCHA_DATA_ATTRS'] = { 'size': 'normal'}
 
 cred = credentials.Certificate("glamify-fbase-secret-key.json")
 firebase_admin.initialize_app(cred, {'databaseURL': "https://glamify-0707-default-rtdb.asia-southeast1.firebasedatabase.app/"})
@@ -73,10 +74,6 @@ def get_product_details(gender, item_id):
 @app.route('/cart')
 def cart():
     return render_template("cart.html")
-
-@app.route('/signup')
-def signup():
-    return render_template("signup.html")
 
 
 
