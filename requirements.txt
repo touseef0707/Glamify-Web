@@ -2,5 +2,5 @@ flask
 flask_wtf
 firebase_admin
 flask-recaptcha
-purebase4
+pyrebase4
 # jinja2==3.0.0    # 3.0.0 breaks flask-recaptha
