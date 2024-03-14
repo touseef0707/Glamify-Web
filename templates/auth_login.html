@@ -31,8 +31,9 @@
         <h2>Login</h2>
         <form method="post" id="loginForm">
             {{ csrf_token }}
-            {{ form_log.username(placeholder="Username") }}
-            {{ form_log.password(placeholder="Password") }}
+            {{ form_log.hidden_tag() }}
+            {{ form_log.username(placeholder=form_log.username.label.text) }}
+            {{ form_log.password(placeholder=form_log.password.label.text) }}
             <!-- {{ form_log.recaptcha }} -->
             <button type="submit">Login</button>
         </form>
