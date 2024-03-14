@@ -4,6 +4,8 @@ from flask import session, redirect, url_for
 import pyrebase
 import datetime
 
+import requests
+
 # Firebase configuration
 config = {
   'apiKey': "AIzaSyBq7bEWK8PNBYkMR3Mh3N7Vx74h8htl0A8",
@@ -51,33 +53,33 @@ def register_user(form):
 
 # Function to check if user exists
 def check_user(username):
-    # Access user data from Firebase Realtime Database
     user = fdb.child('users').child(username)
     if user:
+        print("User found:", user.get().val())
         return True
     else:
         return False
 
 # Function to get user email from database
+
 def get_email(username):
-    if check_user(username):
+    user = fdb.child('users').child(username)
+    if user:
         # Get email from user data in Firebase Realtime Database
-        email = fdb.child('users').child(username).get().val().get('email')
+        email = user.get().val().get('email')
         return email
     else:
         return None
-
+    
 # Function to login user
 def login_user(form):
     try:
         # Get user email
         user_email = get_email(form.username.data)
-        if user_email:
-            # Sign in user with email and password
-            user = pyre_auth.sign_in_with_email_and_password(user_email, form.password.data)
-            print("User logged in successfully:", user['displayName'])
-            session['user'] = user
-        else:
-            print("Email not found for user:", form.username.data)
+        print(user_email)
+        # print(form.password.data)
+        user = pyre_auth.sign_in_with_email_and_password(user_email, form.password.data)
+        print("User logged in successfully:", user['displayName'])
+        session['user'] = user
     except Exception as e:
-        print("Login failed:", str(e))
+        print("normal Login failed:", str(e))

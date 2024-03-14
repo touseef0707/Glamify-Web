@@ -39,7 +39,7 @@ def auth_login():
     print(form_log.errors)
     print(form_log.validate_on_submit())
     print(form_log.validate())
-    print(form_log.username.data, form_log.password.data)
+    # print(form_log.username.data, form_log.password.data)
 
     if form_log.validate_on_submit():
         try:
@@ -47,8 +47,8 @@ def auth_login():
             login_user(form_log)
             return redirect(url_for('home'))
         except Exception as e:
-            flash('Login failed: ' + str(e), 'error')
-            return redirect(url_for('auth_login'))
+            print('Login failed: ' + str(e), 'error')
+            return redirect(url_for('auth.auth_login'))
 
 
     return render_template("auth_login.html", form_log=form_log)
