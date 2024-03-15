@@ -34,8 +34,8 @@
     </section>
 
     <section id="main">
-        <section id="filter">
-            <form action="/filter_products" method="GET">
+        <div id="filter">
+            <form action="store.html" method="GET">
                 <label for="gender">Gender:</label>
                 <select name="gender" id="gender">
                     <option value="">Select Gender</option>
@@ -134,34 +134,42 @@
                 </select>
                 <button type="submit">Apply Filters</button>
             </form>
-        </section>
-        <section id="fe-products" class="section-p1">
-            <div class="products-container">
-                {% for item in fe_items %}
-                
-                <div class="product">
-                        <a class="enclosed" href="{{ url_for('product', gender=item.gender, item_id=item.id) }}">
-                            <img src="{{ item.link }}" alt="product">
-                            <div class="description">
-                                <span>{{item.masterCategory}} / {{item.subCategory}}</span>
-                                <h5>{{ item.productDisplayName }}</h5>
-                                <div class="stars">
-                                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                                </div>
-                                <h4>AED {{ item.price }}</h4>
-                            </div>
-                            <a class = "cart" href="#"><i class="fa-solid fa-cart-shopping" style="color: #096c74;"></i></a>
-                        </a>
-                    </div>
-                {% endfor %}
+        </div>
+        <div class="mainsub">
+            <div id="search">
+                <form action="store.html" method="GET">
+                    <input type="text" name="search" id="search" placeholder="Search for products">
+                    <button type="submit"><i class="fa-solid fa-search" style="color: #ffffff;"></i></button> 
+                </form>
             </div>
-        </section>    
+            <div id="fe-products" class="section-p1">
+                <div class="products-container">
+                    {% for item in fe_items %}
+                    
+                    <div class="product">
+                            <a class="enclosed" href="{{ url_for('product', gender=item.gender, item_id=item.id) }}">
+                                <img src="{{ item.link }}" alt="product">
+                                <div class="description">
+                                    <span>{{item.masterCategory}} / {{item.subCategory}}</span>
+                                    <h5>{{ item.productDisplayName }}</h5>
+                                    <div class="stars">
+                                        <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                        <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                        <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                        <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                        <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                                    </div>
+                                    <h4>AED {{ item.price }}</h4>
+                                </div>
+                                <a class = "cart" href="#"><i class="fa-solid fa-cart-shopping" style="color: #096c74;"></i></a>
+                            </a>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>   
+        </div> 
     </section>
-    
+
     <section id="pagination">
         <a href="#">1</a>
         <a href="#">2</a>
