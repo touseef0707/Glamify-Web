@@ -32,7 +32,155 @@
             <p>Save more with coupons & up to 70% off!</p>
         </div>
     </section>
-
+    <section id="filter">
+        <form action="/filter_products" method="GET">
+            <label for="gender">Gender:</label>
+            <select name="gender" id="gender">
+                <option value="">Select Gender</option>
+                <option value="men">Men</option>
+                <option value="women">Women</option>
+                <option value="boys">Boys</option>
+                <option value="girls">Girls</option>
+                <option value="unisex">Unisex</option>
+            </select>
+            <br>
+            <label for="master_category">Master Category:</label>
+            <select name="master_category" id="master_category">
+                <option value="">Select Master Category</option>
+                <option value="apparel">Apparel</option>
+                <option value="accessories">Accessories</option>
+                <option value="footwear">Footwear</option>
+                <option value="personal_care">Personal Care</option>
+                <option value="free_items">Free Items</option>
+            </select>
+            <br>
+            <label for="sub_category">Sub Category:</label>
+            <select name="sub_category" id="sub_category">
+                <option value="">Select Sub Category</option>
+                <option value="bags">Bags</option>
+                <option value="sandal">Sandal</option>
+                <option value="eyewear">Eyewear</option>
+                <option value="bottomwear">Bottomwear</option>
+                <option value="topwear">Topwear</option>
+                <option value="socks">Socks</option>
+                <option value="shoes">Shoes</option>
+                <option value="watches">Watches</option>
+                <option value="flip_flops">Flip Flops</option>
+                <option value="fragrance">Fragrance</option>
+                <option value="dress">Dress</option>
+                <option value="lips">Lips</option>
+                <option value="saree">Saree</option>
+                <option value="jewellery">Jewellery</option>
+                <option value="skin_care">Skin Care</option>
+                <option value="nails">Nails</option>
+                <option value="apparel_set">Apparel Set</option>
+                <option value="stoles">Stoles</option>
+                <option value="belt">Belt</option>
+                <option value="loungewear_nightwear">Loungewear and Nightwear</option>
+                <option value="shoe_accessories">Shoe Accessories</option>
+                <option value="makeup">Makeup</option>
+                <!-- Add more options for other sub categories -->
+            </select>
+            <br>
+            <label for="season">Season:</label>
+            <select name="season" id="season">
+                <option value="">Select Season</option>
+                <option value="winter">Winter</option>
+                <option value="summer">Summer</option>
+                <option value="fall">Fall</option>
+                <option value="spring">Spring</option>
+            </select>
+            <br>
+            <label for="usage">Usage:</label>
+            <select name="usage" id="usage">
+                <option value="">Select Usage</option>
+                <option value="casual">Casual</option>
+                <option value="formal">Formal</option>
+                <option value="sports">Sports</option>
+            </select>
+            <br>
+            <label for="color">Color:</label>
+            <select name="color" id="color">
+                <option value="">Select Color</option>
+                <option value="red">Red</option>
+                <option value="beige">Beige</option>
+                <option value="green">Green</option>
+                <option value="white">White</option>
+                <option value="purple">Purple</option>
+                <option value="grey">Grey</option>
+                <option value="navy_blue">Navy Blue</option>
+                <option value="silver">Silver</option>
+                <option value="brown">Brown</option>
+                <option value="pink">Pink</option>
+                <option value="gold">Gold</option>
+                <option value="black">Black</option>
+                <option value="multi">Multi</option>
+                <option value="coffee_brown">Coffee Brown</option>
+                <option value="cream">Cream</option>
+                <option value="lime_green">Lime Green</option>
+                <option value="off_white">Off White</option>
+                <option value="burgundy">Burgundy</option>
+                <option value="maroon">Maroon</option>
+                <option value="charcoal">Charcoal</option>
+                <option value="olive">Olive</option>
+                <option value="orange">Orange</option>
+                <option value="mustard">Mustard</option>
+                <option value="bronze">Bronze</option>
+                <option value="blue">Blue</option>
+                <option value="steel">Steel</option>
+                <option value="yellow">Yellow</option>
+                <!-- Add more options for other colors -->
+            </select>
+            <br>
+            <label for="article_type">Article Type:</label>
+            <select name="article_type" id="article_type">
+                <option value="">Select Article Type</option>
+                <option value="TShirts">TShirts</option>
+                <option value="sandals">Sandals</option>
+                <option value="flip_flops">Flip Flops</option>
+                <option value="lipstick">Lipstick</option>
+                <option value="tops">Tops</option>
+                <option value="handbags">Handbags</option>
+                <option value="foundation_primer">Foundation and Primer</option>
+                <option value="tunics">Tunics</option>
+                <option value="casual_shoes">Casual Shoes</option>
+                <option value="watches">Watches</option>
+                <option value="lip_gloss">Lip Gloss</option>
+                <option value="lip_liner">Lip Liner</option>
+                <option value="capris">Capris</option>
+                <option value="wallets">Wallets</option>
+                <option value="kurtas">Kurtas</option>
+                <option value="deodorant">Deodorant</option>
+                <option value="leggings">Leggings</option>
+                <option value="track_pants">Track Pants</option>
+                <option value="jeans">Jeans</option>
+                <option value="flats">Flats</option>
+                <option value="clutches">Clutches</option>
+                <option value="belt">Belt</option>
+                <option value="scarves">Scarves</option>
+                <option value="dresses">Dresses</option>
+                <option value="sunglasses">Sunglasses</option>
+                <option value="heels">Heels</option>
+                <option value="ring">Ring</option>
+                <option value="sarees">Sarees</option>
+                <option value="bangles">Bangles</option>
+                <option value="earrings">Earrings</option>
+                <option value="formal_shoes">Formal Shoes</option>
+                <option value="casual_shoes">Casual Shoes</option>
+                <option value="lehenga_choli">Lehenga Choli</option>
+                <option value="shorts">Shorts</option>
+                <option value="salwar">Salwar</option>
+                <option value="skirts">Skirts</option>
+                <option value="rompers">Rompers</option>
+                <option value="gloves">Gloves</option>
+                <option value="watches">Watches</option>
+                <option value="shirts">Shirts</option>
+                <!-- Add more options for other article types -->
+            </select>
+            <br>
+            <button type="submit">Apply Filters</button>
+        </form>
+    </section>
     <section id="fe-products" class="section-p1">
         <div class="products-container">
             {% for item in fe_items %}

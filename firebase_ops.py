@@ -30,7 +30,8 @@ def register_user(form):
         user = auth.create_user(
             display_name=form.username.data,
             email=form.email.data,
-            phone_number=form.phone.data
+            phone_number=form.phone.data,
+            password=form.password.data
         )
         # Update user display name
         user = auth.update_user(
@@ -61,25 +62,28 @@ def check_user(username):
         return False
 
 # Function to get user email from database
-
 def get_email(username):
-    user = fdb.child('users').child(username)
-    if user:
+    user_ref = db.reference('/users')
+    if user_ref:
         # Get email from user data in Firebase Realtime Database
-        email = user.get().val().get('email')
+        email = user_ref.child(username).child('email').get()
         return email
     else:
         return None
     
 # Function to login user
 def login_user(form):
-    try:
-        # Get user email
+    try:    
         user_email = get_email(form.username.data)
-        print(user_email)
-        # print(form.password.data)
-        user = pyre_auth.sign_in_with_email_and_password(user_email, form.password.data)
-        print("User logged in successfully:", user['displayName'])
-        session['user'] = user
+        try_login(user_email, form.password.data)
     except Exception as e:
         print("normal Login failed:", str(e))
+
+def try_login(user_email, user_pass):
+    try:
+        pyre_auth.sign_in_with_email_and_password(user_email, user_pass)
+        user_id = auth.get_user_by_email(user_email).uid
+        session['user_id'] = user_id
+        print("SUCCESSFULLY LOGGED IN!")
+    except:
+        print("Incorrect username/email or password.")

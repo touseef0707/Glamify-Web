@@ -15,12 +15,6 @@ auth_blueprint = Blueprint('auth', __name__, static_folder='static', template_fo
 def auth_register():
     form_reg = RegistrationForm()
 
-    # Print statements for debugging errors
-    print(form_reg.errors)
-    print(form_reg.validate_on_submit())
-    print(form_reg.validate())
-    print(form_reg.first_name.data, form_reg.last_name.data, form_reg.dob.data, form_reg.email.data, form_reg.phone.data, form_reg.location.data, form_reg.username.data, form_reg.password.data)
-    
     if form_reg.validate_on_submit():
         try:
             # call function to register user
@@ -28,6 +22,9 @@ def auth_register():
             return redirect(url_for('home'))
         except Exception as e:
             flash('Registration failed: ' + str(e), 'error')
+    else:
+        print(form_reg.errors)
+        
     return render_template("auth_register.html", form_reg=form_reg)
 
 # Route for login page
