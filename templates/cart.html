@@ -7,6 +7,7 @@
     <title>My Cart</title>
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
     <link rel="stylesheet" href="static/css/home.css">
+    <link rel="stylesheet" href="static/css/cart.css">
 </head>
 <body>
 
@@ -69,16 +70,46 @@
         </div>
     
         <div class="cart-total">
-            <h3>Total</h3>
-            <h4>Items: 3</h4>
-            <h4>Subtotal: $30.00</h4>
-            <h4>Tax: $3.00</h4>
-            <h4>Total: $33.00</h4>
-            <button class="checkout-btn">Checkout</button>
+           
+            <div class="total-info">
+                <h3>Cart Total</h3>
+                <br>
+                <div class="total-details">
+                    <div>
+                        <h4>Items</h4>
+                        <h4>Subtotal</h4>
+                        <h4>Tax</h4>
+                        <h4>Shipping</h4>
+                        <h4>Total</h4>
+                    </div>
+                    <div>
+                        <h4>3</h4>
+                        <h4>$30.00</h4>
+                        <h4>$3.00</h4>
+                        <h4>$0.00</h4>
+                        <h4>$33.00</h4>
+                    </div>
+                </div>
+            </div>
+            <form action="" method="post">
+                <input type="text" id="coupon" placeholder="Apply Coupon (optional)">
+                <button class="checkout-btn">Checkout</button>
+            </form>
         </div>
+        
     </section>
     
     
+    <section id="newsletter" class="section-p1 section-m1">
+        <div>
+            <h2>Subscribe to our Newsletter</h2>
+            <p>Get the latest updates on new products and upcoming sales</p>
+        </div>
+        <form action="">
+            <input type="email" placeholder="Enter your email">
+            <button class="button" style="vertical-align:middle"><span>Subscribe</span></button>
+        </form>
+    </section>
     
 
     <footer class="section-p1">
