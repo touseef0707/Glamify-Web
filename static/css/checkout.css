@@ -49,24 +49,31 @@ body {
     border-radius: 4px;
 }
 
-.buttons{
+.buttons {
     display: flex;
-    justify-content: space-between;
     margin-top: 20px;
-
 }
-button {
+
+
+
+.buttons button[type="submit"],
+.buttons button[type="button"] {
+    width: 50%;
     background-color: #005062;
     color: #fff;
     border: none;
     padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
+    margin: 0px 5px;
 }
 
-button:hover {
-    background-color: cyan;
+.buttons button[type="submit"]:hover,
+.buttons button[type="button"]:hover {
+    background-color: #08828b;
 }
+
+
 
 .coupon {
     display: flex;
