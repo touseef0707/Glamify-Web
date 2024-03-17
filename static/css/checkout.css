@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: fit-content;
+    background: #04364A;
+}
+
+.image-container {
+    text-align: center; /* Aligns content to the center horizontally */
+    margin-bottom: 20px; /* Adds some space between the image and the checkout container */
+}
+
+.checkout-container {
+    display: grid;
+    grid-template-columns: 1.5fr 2.5fr;
+    padding: 20px;
+}
+
+.checkout-section {
+    margin-right: 20px;
+    border: 1px solid cyan;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.checkout-section h2 {
+    margin-bottom: 10px;
+    color: cyan;
+}
+
+.order-summary {
+    padding-right: 40px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: cyan;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+
+}
+button {
+    background-color: #005062;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: cyan;
+}
+
+.coupon {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: rgb(4, 147, 147);
+}
+
+.order-summary .item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.order-summary .total {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+    font-weight: bold;
+    color: cyan
+}
+
