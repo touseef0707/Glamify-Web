@@ -1,5 +1,5 @@
 # Import necessary modules
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from helpers.dictionary_dataset import dataset
 from auth_routes import auth_blueprint
 import random
@@ -40,7 +40,7 @@ def get_data(num = 10):
 
 # function to remove filtered data
 def filter_data(list, remove_filter):
-    return [d for d in list if d['subCategory'] != remove_filter]
+    return [d for d in list if d['subCategory'] != remove_filter and d['subCategory']!='Loungewear and Nightwear'] 
 
 def get_random_data(list, num = 10):
     return random.sample(list, num)
@@ -75,10 +75,47 @@ def get_product_details(gender, item_id):
         if d['id'] == item_id:
             return d
         
+
+@app.route('/add_to_cart', methods=['POST'])
+def add_to_cart():
+    # Add code here to add item to the cart
+    return redirect(url_for('cart'))
+
+@app.route('/checkout', methods=['POST'])
+def buy():
+    # Add code here to handle checkout process
+    return redirect(url_for('checkout'))
+
 # Route for cart page
 @app.route('/cart')
 def cart():
     return render_template("cart.html")
+
+@app.route('/order_details')
+def order_details():
+    return render_template("order_details.html")
+
+user = {"display_name":"rainyjoke","firstname": "Touseef", "lastname": "Ahmed", 
+        "email": "touseefahmed0707@gmail.com", "phone": "+971234567890",
+        "address" : "ABCD 1234 Street"}
+
+orders = [{"id": "1", "date": "2021-07-07", "total": "1000", "status": "Delivered"},
+          {"id": "2", "date": "2021-07-07", "total": "2000", "status": "Delivered"},
+          {"id": "3", "date": "2021-07-07", "total": "3000", "status": "Delivered"}]
+
+@app.route('/profile')
+def profile():
+    return render_template("profile.html", user = user, orders = orders)
+
+@app.route('/checkout')
+def checkout():
+    return render_template("checkout.html")
+
+@app.route('/wishlist')
+def wishlist():
+    wishlist = get_data(1)
+    return render_template("wishlist.html", fe_items = wishlist)
+
 
 
 if __name__ == '__main__':

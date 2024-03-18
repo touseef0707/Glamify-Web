@@ -589,6 +589,11 @@ footer {
     margin-top: 10px;
 }
 
+.address a{
+    color: white;
+    /* text-decoration: none; */
+}
+
 .socials .icon-links {
     display: flex;
     align-items: center;
@@ -881,91 +886,6 @@ footer .socials .icon-links a{
 
 
 /* About Page */
-
-#about-header{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 20px;
-    text-align: center;
-    background: url("https://source.unsplash.com/2000x200/?nature");
-    background-size: cover; 
-    width: 100%;
-    position: relative;
-    z-index: -1;
-}
-#about-header::before {
-    content: ""; 
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    z-index: -1;
-}
-#about-header h2,
-#about-header p{
-    color: white;
-    z-index: 1;
-}
-
-#about-content {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr; 
-    grid-gap: 20px; 
-    align-items: center; 
-    padding: 40px;
-    background-image: linear-gradient(to bottom, rgb(8, 35, 46), var(--color-body));
-    background-size: cover;
-    background-position: center -70%;
-}
-
-.about-image img {
-    max-width: 100%; 
-    border-radius: 10px;
-}
-    
-.about-text {
-    text-align: left; 
-}
-    
-.about-text h2 {
-    font-size: 2rem; 
-    margin-bottom: 10px;
-    text-align: center;
-    color: white; 
-}
-    
-.about-text p {
-    margin-bottom: 15px;
-    font-weight: 200;
-}
-
-#downloads{
-    text-align: center;
-}
-.app{
-    color: var(--color-4);
-    text-decoration: none;
-}
-
-.app-ss{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-direction: row;
-    margin: 20px;
-}
-
-.app-ss img{
-    height: 400px;
-    object-fit: contain;
-    border-radius: 10px;
-    
-}
-
 
 /* Contact Page */
 
@@ -1260,4 +1180,36 @@ body .signinhtml{
 
 #search button[type="submit"] i {
     font-size: 1.2em;
+}
+
+
+
+
+#about-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+    background: url("https://source.unsplash.com/2000x200/?nature");
+    background-size: cover; 
+    width: 100%;
+    position: relative;
+    z-index: -1;
+}
+#about-header::before {
+    content: ""; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: -1;
+}
+#about-header h2,
+#about-header p{
+    color: white;
+    z-index: 1;
 }

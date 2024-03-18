@@ -97,3 +97,19 @@ body {
     color: cyan
 }
 
+
+.form-group label[for="use-saved-address"] {
+    display: flex;
+    align-items: center;
+}
+
+input[type="checkbox"] {
+    margin-right: 10px;
+    height: 100%;
+    transform: scale(1.5);
+}
+
+.form-group p{
+    color: white;
+    margin-top: 10px;
+}

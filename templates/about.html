@@ -1,30 +1,24 @@
-<!-- base.html -->
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About</title>
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <link rel="stylesheet" href="static/css/home.css">
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %} <title>About</title> {% endblock %}
+{% block css_file %} <link rel="stylesheet" href="static/css/about.css">{% endblock %}
 
-    <section id="header" class="section-p1">
-        <a href="/"><img src="static/images/logos/logo.png" alt="logo" class="logo"></a>
 
-        <div>
-            <ul id="navbar">
-                <li><a href="/">Home</a></li>
-                <li><a href="/store">Store</a></li>                
-                <li><a class="active" href="/about">About</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <li><a href="/cart"><i class="fa-solid fa-bag-shopping" style="color: #63E6BE;"></i></i></a></li>
-                <li><a href="/auth_register"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
-            </ul>
-        </div>
+{% block navlinks %}
+<li><a href="/">Home</a></li>
+<li><a href="/store">Store</a></li>                
+<li><a class="active" href="/about">About</a></li>
+<li><a href="/contact">Contact</a></li>
+<li><a href="/cart"><i class="fa-solid fa-bag-shopping" style="color: #63E6BE;"></i></a></li>
+{% if session['user_id'] %}
+<!--Example<-->
+<li><a href="/profile"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
+{% else %}
+<li><ahref="/auth_register"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></ahref=></li>
+{% endif %}
 
-    </section>
+{% endblock %}
+
+{% block maincontent %}
 
     <section id="about-header" class="section-p1">
         <div>
@@ -36,8 +30,17 @@
     <section id="about-content" class="section-p1">
         <div class="about-text">
             <h2>Our Story - Who Are We?</h2>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus, aliquam ducimus. Vel distinctio, quam eos atque, sed alias obcaecati ratione itaque debitis soluta rerum minus sunt ullam delectus incidunt quia reiciendis natus aut.ut velit, est quod quam earum deleniti magnam laborum? Adipisci quisquam nulla labore earum iste est iusto voluptate molestias impedit ipsam, tempora alias commodi nostrum aut! Ducimus minus blanditiis, ullam consectetur laboriosam unde dolorem accusamus soluta qui voluptatibus vel fuga optio illum id cum! Velit quisquam voluptatum error numquam, qui quasi praesentium tenetur excepturi hic dignissimos facilis rerum, illum esse atque corrupti ab. Ipsam iure officiis sequi minima earum repellat qui magnam distinctio aspernatur. Magnam id quis delectus nobis vero, porro adipisci dolore aspernatur quos natus, ex mollitia pariatur beatae consequatur laboriosam ipsam ea! In, vel aut?</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, veritatis? Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita blanditiis, natus et delectus pariatur consequatur exercitationem quas perferendis doloremque. Perspiciatis suscipit ipsa consequatur, cumque eos soluta corporis! Reprehenderit laboriosam officia beatae impedit mollitia. Porro magnam sapiente minima error reiciendis, totam vel atque suscipit consecte</p>
+            <p>Welcome to Glamify, your ultimate online destination for fashion enthusiasts seeking unparalleled style and sophistication. At Glamify, we pride ourselves on offering a meticulously curated selection of clothing and accessories that cater to every aspect of your wardrobe needs.</p>
+
+            <p>Explore our vast collection, meticulously handpicked by our expert stylists, encompassing a wide array of styles, from chic and trendy to timeless classics. Whether you're looking for the perfect ensemble to make a statement at a special event, or simply seeking everyday essentials that effortlessly blend comfort and style, Glamify has something for everyone.</p>
+
+            <p>Our commitment to quality extends beyond just the products we offer. With an intuitive and user-friendly website design, navigating through our extensive catalog is a breeze. Plus, our secure checkout process ensures a seamless and worry-free shopping experience from start to finish.</p>
+
+            <p>But Glamify isn't just about providing you with fabulous fashion finds—it's also about empowering you to express your unique style and personality. That's why we regularly update our collections to reflect the latest trends and fashion-forward designs, ensuring that you always stay ahead of the curve.</p>
+
+            <p>And it doesn't end there. At Glamify, we understand the importance of excellent customer service. Our dedicated team is always ready to assist you with any questions or concerns, providing personalized recommendations and guidance to help you find the perfect pieces to complement your individual style.</p>
+
+            <p>So why wait? Discover the world of Glamify today and redefine your fashion journey with confidence, creativity, and unparalleled style.</p>
         </div>
 
         <div class="about-image">
@@ -45,140 +48,99 @@
         </div>
     </section>
 
-    <section id="downloads" class="section-p1">
-        <div>
-            <h1>Download Our <a class="app" href="#">App</a></h1>
-            <p>Get the best deals and offers on our app</p>
+    
+    <section id="services" class="section-p1">
+        <h1>Services We Offer</h1>
+        <div id="features">
+        
+            <div class="about-services">
+                <div class="fe-box">
+                    <img src="/static/images/illustrations/collections.png" alt="Great Collections">
+                    <h5>Great Collections</h5>
+                </div>
+                <p>Discover an array of exquisite garments, meticulously curated to reflect elegance and style. Our collection boasts timeless pieces crafted with precision, offering unparalleled sophistication and charm for every occasion.</p>
+            </div>
             
-            <div class="app-ss">
-                <img src="/static/images/banners/s1 (1).jpg" alt="">
-                <img src="/static/images/banners/s1 (2).jpg" alt="">
-                <img src="/static/images/banners/s1 (3).jpg" alt="">
-                <img src="/static/images/banners/s1 (4).jpg" alt="">
-            </div>
-        </div>
-    </section>
-
-    <section id="features" class="section-p1">
-
-        <div class="fe-box">
-            <img src="/static/images/illustrations/collections.png" alt="Great Collections">
-            <h5>Great Collections</h5>
-        </div>
-
-        <div class="fe-box">
-            <img src="/static/images/illustrations/deals.png" alt="Amazing Deals">
-            <h5>Amazing Deals</h5>
-        </div>
-
-        <div class="fe-box">
-            <img src="/static/images/illustrations/delivery.png"  alt="Free and Fast Shipping">
-            <h5>Free and Fast Shipping</h5>
-        </div>
-        
-        <div class="fe-box">
-            <img src="/static/images/illustrations/services.png" alt="Customer Support 24/7<">
-            <h5>Customer Support 24/7</h5>
-        </div>
-
-        <div class="fe-box">
-            <img src="/static/images/illustrations/reviews.png" alt="Great Reviews">
-            <h5>Reviews</h5>
-        </div>
-
-    </section>
-    
-    <section id="newsletter" class="section-p1 section-m1">
-        <div>
-            <h2>Subscribe to our Newsletter</h2>
-            <p>Get the latest updates on new products and upcoming sales</p>
-        </div>
-        <form action="">
-            <input type="email" placeholder="Enter your email">
-            <button class="button" style="vertical-align:middle"><span>Subscribe</span></button>
-        </form>
-    </section>
-
-    <footer class="section-p1">
-        <div class="logo">
-            <a href="/"><img src="static/images/logos/logo.png" alt="logo" class="logo"></a>
-        </div>
-
-        <div class="footer-column">
-            <div class="address">
-                <h4>Contact</h4>
-                <p><strong>Address: </strong> 1234 Baskin-Street, Sharjah, United Arab Emirates</p>
-                <p><strong>Phone: </strong> +971 522 774 769</p>
-                <p><strong>Email: </strong> touseefahmed0707@gmail.com</p>
-                <p><strong>Hours: </strong> 8:00am - 12:00pm</p>
-            </div>
-    
-            <div class="socials">
-                <h4>Follow Us</h4>
-                <div class="icon-links">
-                    <a href="https://www.facebook.com" target="_blank"><i class="fab fa-facebook-f" style="color: aquamarine;"></i></a>
-                    <a href="https://www.twitter.com" target="_blank"><i class="fab fa-twitter" style="color: aquamarine;"></i></a>
-                    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram" style="color: aquamarine;"></i></a>
-                    <a href="https://www.linkedin.com" target="_blank"><i class="fab fa-linkedin-in" style="color: aquamarine;"></i></a>
+            <div class="about-services">
+                <div class="fe-box">
+                    <img src="/static/images/illustrations/deals.png" alt="Amazing Deals">
+                    <h5>Amazing Deals</h5>
                 </div>
+                <p>Explore amazing deals on a wide range of fashion items. From seasonal discounts to exclusive offers, our deals section is your gateway to incredible savings without compromising on style.</p>
             </div>
-        </div>
+            
+            <div class="about-services">
+                <div class="fe-box">
+                    <img src="/static/images/illustrations/delivery.png"  alt="Free and Fast Shipping">
+                    <h5>Free and Fast Shipping</h5>
+                </div>
+                <p>Enjoy the convenience of free and fast shipping on all orders. We prioritize delivering your favorite fashion finds to your doorstep swiftly and efficiently, ensuring you get your items when you need them.</p>
+            </div>
+            
+            <div class="about-services">
+                <div class="fe-box">
+                    <img src="/static/images/illustrations/services.png" alt="Customer Support 24/7">
+                    <h5>Customer Support 24/7</h5>
+                </div>
+                <p>Experience exceptional customer support round the clock. Our dedicated team is available 24/7 to assist you with any inquiries, concerns, or assistance you may require, ensuring a seamless shopping experience.</p>
+            </div>
+            
+            <div class="about-services">
+                <div class="fe-box">
+                    <img src="/static/images/illustrations/reviews.png" alt="Great Reviews">
+                    <h5>Reviews</h5>
+                </div>
+                <p>Read what our customers have to say about their experiences with us. With glowing reviews from satisfied shoppers, you can shop with confidence, knowing you're choosing a retailer trusted by many.</p>
+            </div>            
 
-        <div class="footer-column">
-            <h4>About</h4>
-            <ul>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="#">Delivery Information</a></li>
-                <li><a href="#">Privacy Policy</a></li>
-                <li><a href="#">Terms & Conditions</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>My Account</h4>
-            <ul>
-                <li><a href="profile.html">Sign in</a></li>
-                <li><a href="cart.html">Shopping Cart</a></li>
-                <li><a href="#">Order History</a></li>
-                <li><a href="#">Wishlist</a></li>
-                <li><a href="#">Help</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h4>Install App</h4>
-            <h5>From App Store or Google Play</h5>
-            <div class="icon-links">
-                <div class="icon-box">
-                    <a href="#"><i class="fab fa-apple" style="color: aquamarine;"></i></a>
-                    <p>Download in the App Store</p>
-                </div>
-                
-                <div class="icon-box">
-                    <a href="#"><i class="fab fa-google-play" style="color: aquamarine;"></i></a>
-                    <p>Get in on PlayStore</p>
-                </div>
-            </div>
-            <h5>Secured Payment Gateways</h5>
-            <div class="icon-links">
-                <a href="#"><i class="fab fa-cc-visa" style="color: aquamarine;"></i></a>
-                <a href="#"><i class="fab fa-cc-mastercard" style="color: aquamarine;"></i></a>
-                <a href="#"><i class="fab fa-cc-paypal" style="color: aquamarine;"></i></a>
-            </div>
-        </div>
-    </footer>
+    </section>
+    <section id="policies" class="section-p1">
+        <div id="privacy-policy" class="pptc">
+            <h2>Privacy Policy</h2>
+            <p>At Glamify, we are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, and protect the information you provide to us when using our website.</p>
     
-    <section id="copyright">
-        <p>&copy; 2021 Glamify. All Rights Reserved</p>
+            <h3>Information We Collect</h3>
+            <p>When you visit our website, we may collect certain information about your visit, such as your IP address, browser type, and operating system. We also collect personal information that you voluntarily provide to us, such as your name, email address, and phone number, when you create an account or make a purchase.</p>
+    
+            <h3>How We Use Your Information</h3>
+            <p>We use the information we collect to improve our website and services, process your orders, communicate with you about your orders and account, and provide you with a personalized shopping experience. We may also use your information to send you promotional emails or newsletters, but you can opt out of receiving these communications at any time.</p>
+    
+            <h3>Information Sharing</h3>
+            <p>We may share your personal information with third-party service providers who assist us in operating our website, processing payments, and delivering orders. We do not sell or rent your personal information to third parties for their marketing purposes.</p>
+    
+            <h3>Security</h3>
+            <p>We take the security of your personal information seriously and have implemented measures to protect it from unauthorized access, use, or disclosure. However, no method of transmission over the internet or electronic storage is 100% secure, so we cannot guarantee absolute security.</p>
+    
+            <h3>Changes to this Privacy Policy</h3>
+            <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We encourage you to review this Privacy Policy periodically.</p>
+    
+            <h3>Contact Us</h3>
+            <p>If you have any questions or concerns about our Privacy Policy, please contact us at glamify@info.com.</p>
+        </div>
+        <div id="TermsConditions" class="pptc">
+            <h2>Terms and Conditions</h2>
+            <p>Welcome to Glamify! By accessing our website, you agree to comply with and be bound by the following terms and conditions of use. Please review these terms carefully before using our website. If you do not agree to these terms, you should not use our website.</p>
+    
+            <h3>Use of Our Website</h3>
+            <p>Our website is intended for personal, non-commercial use. You may not use our website for any illegal or unauthorized purpose, and you agree to comply with all applicable laws and regulations.</p>
+    
+            <h3>Intellectual Property</h3>
+            <p>All content on our website, including text, images, graphics, logos, and software, is the property of Glamify and is protected by copyright and other intellectual property laws. You may not use, reproduce, or distribute any content from our website without our prior written consent.</p>
+    
+            <h3>Links to Third-Party Websites</h3>
+            <p>Our website may contain links to third-party websites that are not owned or controlled by Glamify. We are not responsible for the content or privacy practices of these websites and encourage you to review their terms and privacy policies.</p>
+    
+            <h3>Limitation of Liability</h3>
+            <p>Glamify is not liable for any direct, indirect, incidental, special, or consequential damages that result from the use of, or inability to use, our website or the content on our website.</p>
+    
+            <h3>Changes to these Terms and Conditions</h3>
+            <p>We may update these terms and conditions from time to time to reflect changes in our practices or for other operational, legal, or regulatory reasons. We encourage you to review these terms periodically.</p>
+    
+            <h3>Contact Us</h3>
+            <p>If you have any questions or concerns about our terms and conditions, please do not hesitate to contact us at glamify@info.com
+        </div>
     </section>
 
+    
 
-    <div class="content">
-        {% block content %}
-        
-        {% endblock %}
-    </div>
-
-    <script src="static/js/home.js"></script>
-    <script src="https://kit.fontawesome.com/a1597cdc8f.js" crossorigin="anonymous"></script>
-</body>
-</html>
+{% endblock %}

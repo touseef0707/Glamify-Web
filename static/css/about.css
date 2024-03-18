@@ -1,0 +1,175 @@
+
+body{
+    background-color: var(--color-header);
+}
+:root{
+    --text-xxs: 0.5rem;
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+    --text-5xl: 3rem;
+    --text-6xl: 4rem;
+
+    --color-header: #04364A;
+    --color-2: #176B87;
+    --color-3: #64CCC5;
+    --color-4: #096c74;
+    --color-5: #1E6F73;
+    --color-6: #04364A;
+    --color-7: #00948d5e;
+    --color-body: #DAFFFB;
+    --color-hover: #9af5ed;
+}
+
+#about-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+    background: url("https://source.unsplash.com/2000x200/?nature");
+    background-size: cover; 
+    width: 100%;
+    position: relative;
+    z-index: -1;
+}
+#about-header::before {
+    content: ""; 
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: -1;
+}
+#about-header h2,
+#about-header p{
+    color: white;
+    z-index: 1;
+}
+
+#about-content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; 
+    grid-gap: 20px; 
+    align-items: center; 
+    padding: 40px;
+    background-size: cover;
+    background-position: center -70%;
+    border: 2px solid cyan;
+    margin: 25px;
+}
+
+.about-image img {
+    max-width: 100%; 
+    border-radius: 10px;
+}
+    
+.about-text {
+    text-align: left; 
+}
+    
+.about-text h2 {
+    font-size: 2rem; 
+    margin-bottom: 10px;
+    text-align: center;
+    color: cyan; 
+}
+    
+.about-text p {
+    margin-bottom: 15px;
+    font-weight: 200;
+    color: white;
+}
+
+#features{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#services h1{
+    text-align: center;
+    color: cyan;
+}
+
+.about-services{
+    width: 30%;
+    height: 350px;
+    margin: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    border: 2px solid cyan;
+}
+
+.about-services h5,
+.about-services p{
+    color: white;
+    text-align: center;
+}
+
+.about-services:hover{
+    background: rgba(255, 255, 255, 0.135);
+    transition: 0.5s;
+}
+
+
+
+/* CSS for Privacy Policy Section */
+
+#policies{
+    padding: 20px;
+    color: white;
+    text-align: center;
+    background: var(--color-header);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+
+}
+.pptc{
+    max-width: 800px;
+    margin: 0 5px;
+    padding: 20px;
+    border: 2px solid cyan;
+}
+
+.pptc h2 {
+    color: cyan;
+    margin-bottom: 10px;
+}
+
+.pptc h3 {
+    color: white;
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.pptc p {
+    color: #e1dfdf;
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+/* Styling hyperlinks within the privacy policy */
+.pptc a {
+    color: #007bff; /* Link color */
+    text-decoration: underline;
+}
+
+.pptc a:hover {
+    color: #0056b3; /* Hover color */
+}
+
+

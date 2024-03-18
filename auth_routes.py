@@ -24,20 +24,13 @@ def auth_register():
             flash('Registration failed: ' + str(e), 'error')
     else:
         print(form_reg.errors)
-        
+
     return render_template("auth_register.html", form_reg=form_reg)
 
 # Route for login page
 @auth_blueprint.route('/auth_login', methods=['GET','POST'])
 def auth_login():
     form_log = LoginForm()
-
-    # Print statements for debugging errors
-    print(form_log.errors)
-    print(form_log.validate_on_submit())
-    print(form_log.validate())
-    # print(form_log.username.data, form_log.password.data)
-
     if form_log.validate_on_submit():
         try:
             # call function to login user
@@ -46,6 +39,12 @@ def auth_login():
         except Exception as e:
             print('Login failed: ' + str(e), 'error')
             return redirect(url_for('auth.auth_login'))
-
-
+        
     return render_template("auth_login.html", form_log=form_log)
+
+# Route for logout
+@auth_blueprint.route('/auth_logout')
+def auth_logout():
+    # Clear the user's session
+    session.clear()
+    return redirect(url_for('auth.auth_login'))
