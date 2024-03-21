@@ -1,8 +1,7 @@
 # Import necessary modules and packages
 from firebase_admin import auth, db
 from flask import session, redirect, url_for
-import pyrebase
-import datetime
+import pyrebase, datetime, smtplib, random
 
 import requests
 
@@ -38,6 +37,11 @@ def register_user(form):
             user.uid,
             display_name=form.username.data
         )
+        print("sending email...")
+        sendOTP(form.email.data)
+
+        session['user_id_reg'] = user.uid
+        print(session['user_id_reg'])
         # Update user data in Firebase Realtime Database
         db.reference('/users').update({
             form.username.data: {
@@ -49,6 +53,7 @@ def register_user(form):
                 'created_on': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             }
         })
+        print("user reference temporarily updated...")
     except Exception as e:
         print("User registration failed:", e)
 
@@ -87,3 +92,44 @@ def try_login(user_email, user_pass):
         print("SUCCESSFULLY LOGGED IN!")
     except:
         print("Incorrect username/email or password.")
+
+
+def sendOTP(email):
+    otp = random.randint(109832, 999999)
+    print("OTP:", otp)
+    subject = "Glamify - One Time Password"
+    message = "Your OTP for login is: " + str(otp)
+
+    sender_email = "glamify0707@gmail.com"
+    body = f"Subject: {subject}\n\n{message}"
+
+    smtp = smtplib.SMTP('smtp.gmail.com', 587)
+    smtp.starttls()
+    smtp.login(sender_email, "aaicqolgqzyrjirk")
+    smtp.sendmail(sender_email, email, body)
+    smtp.quit()
+    session['verify'] = otp
+
+def verify_user(form):
+    print("verifying user function entered...")
+    if form.otp.data == session['verify']:
+        session.pop('user_id_reg', None)
+        print("verified successfully!")
+        delete_otp(session['user_id_reg'])
+        return redirect(url_for('auth.auth_login'))
+    else:
+        delete_otp(session['user_id_reg'])
+        print("verification failed!")
+        return redirect(url_for('auth.auth_verify'))
+    
+
+def delete_otp(user_id):
+    session.pop('verify', None)
+    print("OTP deleted for user:", user_id)
+
+def delete_user(user_id):
+    try:
+        auth.delete_user(user_id)
+        print("User deleted:", user_id)
+    except Exception as e:
+        print("User deletion failed:", e)
