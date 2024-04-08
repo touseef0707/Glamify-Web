@@ -2,9 +2,7 @@
 from firebase_admin import auth, db
 from flask import session, redirect, url_for
 import pyrebase, datetime, smtplib, random
-
 import requests
-
 # Firebase configuration
 config = {
   'apiKey': "AIzaSyBq7bEWK8PNBYkMR3Mh3N7Vx74h8htl0A8",
@@ -110,21 +108,7 @@ def sendOTP(email):
     smtp.quit()
     session['verify'] = str(otp)
 
-def verify_user(form):
-    print("verifying user function entered...")
-    print("form.otp.data:", form.otp.data, "session['verify']:", session['verify'])
-    try:
-        if form.otp.data == session['verify']:
-            session.pop('user_id_reg', None)
-            print("verified successfully!")
-            print(url_for('auth.auth_login'))
-            try:
-                return redirect(url_for('auth.auth_login'))
-            except Exception as e:
-                print(e)
-    except Exception as e:
-        print("Verification failed:", e)
-        return redirect(url_for('auth.auth_verify'))
+
     
 
 def delete_otp(user_id):

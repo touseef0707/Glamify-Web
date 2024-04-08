@@ -4,7 +4,7 @@ from firebase_admin import db, auth
 from flask_recaptcha import ReCaptcha
 from flask import Flask, render_template, request, redirect, url_for, session, flash, Blueprint
 from auth_forms import RegistrationForm, LoginForm, VerifyForm
-from firebase_ops import register_user, login_user, sendOTP, verify_user, delete_otp
+from firebase_ops import register_user, login_user, sendOTP, delete_otp
 import datetime
 import threading
 from firebase_admin.auth import UserNotFoundError
@@ -64,6 +64,19 @@ def auth_login():
             return redirect(url_for('auth.auth_login'))
     print()
     return render_template("auth_login.html", form_log=form_log)
+
+def verify_user(form):
+    print("verifying user function entered...")
+    print("form.otp.data:", form.otp.data, "session['verify']:", session['verify'])
+    try:
+        if form.otp.data == session['verify']:
+            session.pop('user_id_reg', None)
+            print("verified successfully!")
+            print(url_for('auth.auth_login'))
+            return redirect(url_for('auth.auth_login'))
+    except Exception as e:
+        print("Verification failed:", e)
+        return redirect(url_for('auth.auth_verify'))
 
 # Route for logout
 @auth_blueprint.route('/auth_logout')
