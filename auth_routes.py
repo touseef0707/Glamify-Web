@@ -52,6 +52,7 @@ def auth_verify():
 # Route for login page
 @auth_blueprint.route('/auth_login', methods=['GET','POST'])
 def auth_login():
+    print("Session before login: ", session)
     form_log = LoginForm()
     if form_log.validate_on_submit():
         try:
@@ -61,7 +62,7 @@ def auth_login():
         except Exception as e:
             print('Login failed: ' + str(e), 'error')
             return redirect(url_for('auth.auth_login'))
-        
+    print()
     return render_template("auth_login.html", form_log=form_log)
 
 # Route for logout

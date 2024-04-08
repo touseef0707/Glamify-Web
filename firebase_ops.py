@@ -108,18 +108,22 @@ def sendOTP(email):
     smtp.login(sender_email, "aaicqolgqzyrjirk")
     smtp.sendmail(sender_email, email, body)
     smtp.quit()
-    session['verify'] = otp
+    session['verify'] = str(otp)
 
 def verify_user(form):
     print("verifying user function entered...")
-    if form.otp.data == session['verify']:
-        session.pop('user_id_reg', None)
-        print("verified successfully!")
-        delete_otp(session['user_id_reg'])
-        return redirect(url_for('auth.auth_login'))
-    else:
-        delete_otp(session['user_id_reg'])
-        print("verification failed!")
+    print("form.otp.data:", form.otp.data, "session['verify']:", session['verify'])
+    try:
+        if form.otp.data == session['verify']:
+            session.pop('user_id_reg', None)
+            print("verified successfully!")
+            print(url_for('auth.auth_login'))
+            try:
+                return redirect(url_for('auth.auth_login'))
+            except Exception as e:
+                print(e)
+    except Exception as e:
+        print("Verification failed:", e)
         return redirect(url_for('auth.auth_verify'))
     
 
@@ -129,7 +133,11 @@ def delete_otp(user_id):
 
 def delete_user(user_id):
     try:
+        user = auth.get_user(user_id)
         auth.delete_user(user_id)
+        db.reference('/users').child(user.display_name)
         print("User deleted:", user_id)
     except Exception as e:
         print("User deletion failed:", e)
+
+# delete_user('osEHFsfWFqcAogzMQxqJSwyzlzl1')
