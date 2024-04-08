@@ -88,8 +88,11 @@ def try_login(user_email, user_pass):
         user_id = auth.get_user_by_email(user_email).uid
         session['user_id'] = user_id
         print("SUCCESSFULLY LOGGED IN!")
+        print(url_for('home'))
+        return redirect(url_for('home'))
     except:
         print("Incorrect username/email or password.")
+        return redirect(url_for('auth.auth_login'))
 
 
 def sendOTP(email):

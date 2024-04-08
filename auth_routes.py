@@ -58,7 +58,6 @@ def auth_login():
         try:
             # call function to login user
             login_user(form_log)
-            return redirect(url_for('home'))
         except Exception as e:
             print('Login failed: ' + str(e), 'error')
             return redirect(url_for('auth.auth_login'))
