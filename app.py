@@ -4,7 +4,7 @@ from helpers.dictionary_dataset import dataset
 from auth_routes import auth_blueprint
 import random
 import firebase_admin
-from firebase_admin import credentials
+from firebase_admin import credentials, auth, db
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -124,6 +124,18 @@ def wishlist():
     wishlist = get_data(1)
     return render_template("wishlist.html", fe_items = wishlist)
 
+# Function to delete user from Firebase Authentication and Realtime Database
+def delete_user(user_id):
+    try:
+        # Get user object
+        user = auth.get_user(user_id)
+        # Delete user from Firebase Authentication
+        auth.delete_user(user_id)
+        # Delete user from Firebase Realtime Database
+        db.reference("/users").child(user.display_name).delete()
+
+    except Exception as e:
+        print("User deletion failed:", e)
 
 
 if __name__ == '__main__':

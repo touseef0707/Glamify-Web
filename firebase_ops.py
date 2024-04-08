@@ -1,8 +1,7 @@
 # Import necessary modules and packages
 from firebase_admin import auth, db
-from flask import session, redirect, url_for
+from flask import session
 import pyrebase, datetime, smtplib, random
-import requests
 
 # Firebase configuration
 config = {
@@ -16,7 +15,7 @@ config = {
     "databaseURL": "https://glamify-0707-default-rtdb.asia-southeast1.firebasedatabase.app/",
 }
 
-# Initialize Firebase
+# Initialize Firebase database
 firebase = pyrebase.initialize_app(config)
 pyre_auth = firebase.auth()
 fdb = firebase.database()
@@ -180,15 +179,4 @@ def delete_otp(user_id):
     session.pop("verify", None)
     print("OTP deleted for user:", user_id)
 
-# Function to delete user from Firebase Authentication and Realtime Database
-def delete_user(user_id):
-    try:
-        user = auth.get_user(user_id)
-        auth.delete_user(user_id)
-        db.reference("/users").child(user.display_name)
-        print("User deleted:", user_id)
-    except Exception as e:
-        print("User deletion failed:", e)
 
-
-# delete_user('osEHFsfWFqcAogzMQxqJSwyzlzl1')
