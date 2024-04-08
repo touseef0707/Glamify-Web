@@ -22,5 +22,6 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     recaptcha = RecaptchaField()
 
+# OTP Verification Form
 class VerifyForm(FlaskForm):
     otp = StringField('OTP', validators=[DataRequired()])

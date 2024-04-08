@@ -6,6 +6,7 @@ import random
 import firebase_admin
 from firebase_admin import credentials
 
+# Initialize Flask app
 app = Flask(__name__)
 app.register_blueprint(auth_blueprint)
 
@@ -17,6 +18,7 @@ app.config['RECAPTCHA_PRIVATE_KEY'] = '6Lc24ZUpAAAAAGyH1juh5bLhxcnxLuuaF6EP70xx'
 app.config['RECAPTCHA_TABINDEX'] = 1
 app.config['RECAPTCHA_DATA_ATTRS'] = { 'size': 'normal'}
 
+# Initialize Firebase
 cred = credentials.Certificate("glamify-fbase-secret-key.json")
 firebase_admin.initialize_app(cred, {'databaseURL': "https://glamify-0707-default-rtdb.asia-southeast1.firebasedatabase.app/"})
 
@@ -28,7 +30,7 @@ def home():
     new_items = get_data(1)
     return render_template("home.html", fe_items = fe_items, new_items = new_items)
 
-# fetching random data from the dataset
+# function to get data according to numbers specified
 def get_data(num = 10):
     dataset_men = get_random_data(filter_data(dataset['Men'], 'Innerwear'), num)
     dataset_women = get_random_data(filter_data(dataset['Women'], 'Innerwear'), num)
@@ -42,6 +44,7 @@ def get_data(num = 10):
 def filter_data(list, remove_filter):
     return [d for d in list if d['subCategory'] != remove_filter and d['subCategory']!='Loungewear and Nightwear'] 
 
+# function to get random data
 def get_random_data(list, num = 10):
     return random.sample(list, num)
 
@@ -91,10 +94,12 @@ def buy():
 def cart():
     return render_template("cart.html")
 
+# Route for order details page
 @app.route('/order_details')
 def order_details():
     return render_template("order_details.html")
 
+# dummy user information and orders
 user = {"display_name":"rainyjoke","firstname": "Touseef", "lastname": "Ahmed", 
         "email": "touseefahmed0707@gmail.com", "phone": "+971234567890",
         "address" : "ABCD 1234 Street"}
@@ -103,14 +108,17 @@ orders = [{"id": "1", "date": "2021-07-07", "total": "1000", "status": "Delivere
           {"id": "2", "date": "2021-07-07", "total": "2000", "status": "Delivered"},
           {"id": "3", "date": "2021-07-07", "total": "3000", "status": "Delivered"}]
 
+# Route for profile page
 @app.route('/profile')
 def profile():
     return render_template("profile.html", user = user, orders = orders)
 
+# Route for checkout page
 @app.route('/checkout')
 def checkout():
     return render_template("checkout.html")
 
+# Route for wishlist page
 @app.route('/wishlist')
 def wishlist():
     wishlist = get_data(1)
