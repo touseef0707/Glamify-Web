@@ -85,10 +85,12 @@ def readDataFromFile(input_file_name):
 def generate_random_price():
     return round(random.uniform(10, 60), 2)
 
-# Function that adds generated prices column in the dataset
-def add_column_price():
-    input_file_name = 'output_dataset.csv'
-    output_file_name = 'updated_dataset.csv'
+#generate random quantity between 1 and 20
+def generate_random_quantity():
+    return random.randint(1, 20)
+
+# Function that adds columns in the dataset
+def add_column(input_file_name, output_file_name):
 
     # Read data from the input CSV file and add a new column with randomly generated prices
     with open(input_file_name, mode='r') as input_file, open(output_file_name, mode='w', newline='') as output_file:
@@ -96,17 +98,17 @@ def add_column_price():
         csv_writer = csv.writer(output_file)
 
         header = next(csv_reader)
-        header.append('Price')
+        header.append('Quantity')
         csv_writer.writerow(header)
 
         # Process each row and add randomly generated price
         for row in csv_reader:
-            price = generate_random_price()
+            price = generate_random_quantity()
             row.append(price)
             csv_writer.writerow(row)
 
-# Function to convert data from CSV file to dictionary and write it to a text file
 
+# Function to convert data from CSV file to dictionary and write it to a text file
 def read_csv_and_create_dictionary(csv_filename):
     # Initialize an empty dictionary to store the data
     import csv
@@ -135,7 +137,8 @@ def read_csv_and_create_dictionary(csv_filename):
                 'usage': row['usage'], 
                 'productDisplayName': row['productDisplayName'], 
                 'link': row['link'],
-                'price': row['price']
+                'price': row['price'],
+                'quantity': row['quantity']
             }
 
             # Append the item to the appropriate list based on gender
