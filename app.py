@@ -32,11 +32,14 @@ def home():
 
 # function to get data according to numbers specified
 def get_data(num = 10):
+    # filtered out innerwears :)
     dataset_men = get_random_data(filter_data(dataset['Men'], 'Innerwear'), num)
     dataset_women = get_random_data(filter_data(dataset['Women'], 'Innerwear'), num)
+
     dataset_boys = get_random_data(dataset['Boys'], num)
     dataset_girls = get_random_data(dataset['Girls'], num)
     dataset_unisex = get_random_data(dataset['Unisex'], num)
+    
     dataset_final = dataset_men + dataset_women + dataset_boys + dataset_girls + dataset_unisex
     return dataset_final
 
@@ -61,9 +64,41 @@ def contact():
 # Route for store page
 @app.route('/store')
 def store():
-    fe_items = get_data(4)
-    new_items = get_data(4)
-    return render_template("store.html", fe_items = fe_items, new_items = new_items)
+    # Get the search query from the form submission
+    search_query = request.args.get('search')
+    
+    # Get filter options from the form submission
+    filters = {
+        'gender': request.args.get('gender', '').lower(),
+        'masterCategory': request.args.get('master_category', '').lower(),
+        'subCategory': request.args.get('sub_category', '').lower(),
+        'season': request.args.get('season', '').lower(),
+        'usage': request.args.get('occasion', '').lower(),
+        'baseColour': request.args.get('color', '').lower()
+    }
+    
+    # Get all items
+    items = get_data(100)
+    
+    # Apply search filter if search query is provided
+    if search_query:
+        items = [item for item in items if search_query.lower() in item['productDisplayName'].lower()]
+    
+    # Apply all other filters
+    filtered_items = apply_all_filters(items, filters)
+    
+    return render_template("store.html", fe_items=filtered_items)
+
+def apply_all_filters(products, filters):
+    filtered_products = products
+    
+    # Apply each filter
+    for key, value in filters.items():
+        if value:
+            filtered_products = [item for item in filtered_products if item[key].lower() == value]
+    
+    return filtered_products
+
 
 # Route for product page
 @app.route('/product/<gender>/<item_id>')
@@ -137,6 +172,7 @@ def delete_user(user_id):
     except Exception as e:
         print("User deletion failed:", e)
 
+# delete_user("dX4uGhSITmRoqUosbRxUE1YY3Q13")
 
 if __name__ == '__main__':
     app.run(debug=True)

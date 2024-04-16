@@ -2,6 +2,8 @@
 {% block title %} <title>Register</title> {% endblock %}
 {% block css_file %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/log.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
 {% endblock %}
 
 {% block navlinks %}
@@ -34,7 +36,7 @@
             </div>
             {{ form_reg.dob(placeholder=form_reg.dob.label.text)}}
             {{ form_reg.email( placeholder=form_reg.email.label.text) }}
-            {{ form_reg.phone( placeholder=form_reg.phone.label.text) }}
+            {{ form_reg.phone( placeholder=form_reg.phone.label.text, id = "phone" ) }}
             {{ form_reg.location( placeholder=form_reg.location.label.text) }}
             {{ form_reg.username( placeholder=form_reg.username.label.text) }}
             {{ form_reg.password( placeholder=form_reg.password.label.text) }}
@@ -47,3 +49,11 @@
     </section>
  
 {% endblock %}
+
+<script>
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+        utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+</script>
