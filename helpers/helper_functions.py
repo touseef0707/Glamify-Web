@@ -152,3 +152,26 @@ def write_data_to_textfile(data, output_file):
         file.write(json.dumps(data, indent=4))
 
 
+import pandas as pd
+
+def update_ids(csv_file):
+    # Read the CSV file into a DataFrame
+    df = pd.read_csv(csv_file)
+    
+    # Update the 'id' column with sequential IDs starting from 1000
+    df['id'] = range(1000, 1000 + len(df))
+    
+    # Write the updated DataFrame back to the CSV file
+    df.to_csv(csv_file, index=False)
+
+def truncate_year(csv_file):
+    # Read the CSV file into a DataFrame
+    df = pd.read_csv(csv_file)
+
+    # Convert the "year" column to string and remove trailing ".0"
+    df['year'] = df['year'].astype(str).str.rstrip('.0')
+
+    # Write the updated DataFrame back to the CSV file
+    df.to_csv(csv_file, index=False)
+
+
