@@ -6,7 +6,7 @@ document.querySelectorAll('.cart').forEach(item => {
         const productElement = item.closest('.product');
         const itemId = productElement.querySelector('input[type="hidden"]').value; // Fetch the product ID from the hidden input field
         // Send data to Flask server via AJAX
-        fetch('/add_to_cart', {
+        fetch('/add_to_wishlist', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -17,7 +17,7 @@ document.querySelectorAll('.cart').forEach(item => {
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Failed to add item to cart');
+                throw new Error('Failed to add item to wishlist. Please try again later.');
             }
             return response.json();
         })

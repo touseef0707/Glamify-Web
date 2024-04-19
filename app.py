@@ -76,7 +76,7 @@ def store():
     }
     
     # Get all items
-    items = get_data(100)
+    items = get_data(10)
      
     # Apply search filter if search query is provided
     if search_query:
@@ -88,15 +88,15 @@ def store():
     return render_template("store.html", fe_items=filtered_items)
 
 # Route to handle adding items to cart
-@app.route('/add_to_cart', methods=['POST'])
-def add_to_cart():
+@app.route('/add_to_wishlist', methods=['POST'])
+def add_to_wishlist():
     data = request.get_json()
     item_id = data['itemId']
     data = get_product_data(all_items, item_id)
     print(data)
     try:
         # Add item to the cart collection in Firebase
-        db.reference("/cart").child(item_id).set(data)
+        db.reference("/wishlist").child(item_id).set(data)
         return jsonify({'success': True, 'message': 'Item added to cart successfully'}), 200
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
@@ -105,16 +105,12 @@ def add_to_cart():
 # Route for product page
 @app.route('/product/<gender>/<item_id>')
 def product(gender, item_id):
-    product_details = get_product_details(gender, item_id)
+    product_details = get_product_data(all_items, item_id)
+    print(product_details)
     fe_items = get_random_data(filter_data(dataset[gender]  , 'Innerwear'), 4)
     return render_template('product.html', product_details=product_details, fe_items=fe_items)
 
-# function to get product details
-def get_product_details(gender, item_id):
-    for d in dataset[gender]:
-        if d['id'] == item_id:
-            return d
-        
+
 
 @app.route('/checkout', methods=['POST'])
 def buy():
