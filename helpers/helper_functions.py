@@ -175,3 +175,37 @@ def truncate_year(csv_file):
     df.to_csv(csv_file, index=False)
 
 
+# function to remove filtered data
+def filter_data(list, remove_filter):
+    return [d for d in list if d['subCategory'] != remove_filter and d['subCategory']!='Loungewear and Nightwear'] 
+
+# function to get random data
+def get_random_data(list, num = 10):
+    return random.sample(list, num)
+
+# function to apply all filters
+def apply_all_filters(products, filters):
+    filtered_products = products
+    
+    # Apply each filter
+    for key, value in filters.items():
+        if value:
+            filtered_products = [item for item in filtered_products if item[key].lower() == value]
+    
+    return filtered_products
+
+
+# retrieve product details using binary search
+def get_product_data(arr, id):
+    l = 0
+    r = len(arr) - 1
+    while l <= r:
+        mid = l + (r - l) // 2
+        if arr[mid]['id'] == id:
+            return arr[mid]
+        elif arr[mid]['id'] < id:
+            l = mid + 1
+        else:
+            r = mid - 1
+    return None
+    

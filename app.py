@@ -1,6 +1,7 @@
 # Import necessary modules
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for
 from helpers.dictionary_dataset import dataset
+from helpers.helper_functions import filter_data, get_random_data, apply_all_filters, get_product_data
 from auth_routes import auth_blueprint
 import random
 import firebase_admin
@@ -23,6 +24,11 @@ cred = credentials.Certificate("glamify-fbase-secret-key.json")
 firebase_admin.initialize_app(cred, {'databaseURL': "https://glamify-0707-default-rtdb.asia-southeast1.firebasedatabase.app/"})
 
 
+# get all items into one list
+dm = filter_data(dataset['Men'], 'Innerwear')
+dw = filter_data(dataset['Women'], 'Innerwear')
+all_items =  dm + dw + dataset['Boys'] + dataset['Girls'] + dataset['Unisex']
+
 # Route for home page
 @app.route('/')
 def home():
@@ -35,7 +41,6 @@ def get_data(num = 10):
     # filtered out innerwears :)
     dataset_men = get_random_data(filter_data(dataset['Men'], 'Innerwear'), num)
     dataset_women = get_random_data(filter_data(dataset['Women'], 'Innerwear'), num)
-
     dataset_boys = get_random_data(dataset['Boys'], num)
     dataset_girls = get_random_data(dataset['Girls'], num)
     dataset_unisex = get_random_data(dataset['Unisex'], num)
@@ -43,13 +48,6 @@ def get_data(num = 10):
     dataset_final = dataset_men + dataset_women + dataset_boys + dataset_girls + dataset_unisex
     return dataset_final
 
-# function to remove filtered data
-def filter_data(list, remove_filter):
-    return [d for d in list if d['subCategory'] != remove_filter and d['subCategory']!='Loungewear and Nightwear'] 
-
-# function to get random data
-def get_random_data(list, num = 10):
-    return random.sample(list, num)
 
 # Route for about page
 @app.route('/about')
@@ -79,7 +77,7 @@ def store():
     
     # Get all items
     items = get_data(100)
-    
+     
     # Apply search filter if search query is provided
     if search_query:
         items = [item for item in items if search_query.lower() in item['productDisplayName'].lower()]
@@ -89,16 +87,20 @@ def store():
     
     return render_template("store.html", fe_items=filtered_items)
 
-def apply_all_filters(products, filters):
-    filtered_products = products
+# Route to handle adding items to cart
+@app.route('/add_to_cart', methods=['POST'])
+def add_to_cart():
+    data = request.get_json()
+    item_id = data['itemId']
+    data = get_product_data(all_items, item_id)
+    print(data)
+    try:
+        # Add item to the cart collection in Firebase
+        db.reference("/cart").child(item_id).set(data)
+        return jsonify({'success': True, 'message': 'Item added to cart successfully'}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
     
-    # Apply each filter
-    for key, value in filters.items():
-        if value:
-            filtered_products = [item for item in filtered_products if item[key].lower() == value]
-    
-    return filtered_products
-
 
 # Route for product page
 @app.route('/product/<gender>/<item_id>')
@@ -113,11 +115,6 @@ def get_product_details(gender, item_id):
         if d['id'] == item_id:
             return d
         
-
-@app.route('/add_to_cart', methods=['POST'])
-def add_to_cart():
-    # Add code here to add item to the cart
-    return redirect(url_for('cart'))
 
 @app.route('/checkout', methods=['POST'])
 def buy():
@@ -173,6 +170,10 @@ def delete_user(user_id):
         print("User deletion failed:", e)
 
 # delete_user("dX4uGhSITmRoqUosbRxUE1YY3Q13")
+
+# from helpers.helper_functions import write_data_to_textfile, read_csv_and_create_dictionary
+
+# write_data_to_textfile(read_csv_and_create_dictionary("static/dataset/final_dataset.csv"),"static/dataset/dictionary_dataset.txt")
 
 if __name__ == '__main__':
     app.run(debug=True)

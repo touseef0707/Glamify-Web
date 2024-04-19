@@ -1,14 +1,10 @@
-// JavaScript code to handle clicking the cart anchor tag
 document.querySelectorAll('.cart').forEach(item => {
     item.addEventListener('click', event => {
         event.preventDefault(); // Prevent the default anchor tag behavior
         
         // Get product details from the DOM
-        const productElement = item.closest('.product');// Get product details from the DOM
-        const itemId = document.getElementById('itemid').value;
-        const itemName = productElement.querySelector('.description h5').textContent;
-        const itemPrice = productElement.querySelector('.description h4').textContent.replace('AED ', ''); // Remove 'AED ' prefix
-        console.log(itemId, itemName, itemPrice);
+        const productElement = item.closest('.product');
+        const itemId = productElement.querySelector('input[type="hidden"]').value; // Fetch the product ID from the hidden input field
         // Send data to Flask server via AJAX
         fetch('/add_to_cart', {
             method: 'POST',
@@ -16,9 +12,7 @@ document.querySelectorAll('.cart').forEach(item => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                itemId: itemId,
-                itemName: itemName,
-                itemPrice: itemPrice
+                itemId: itemId
             })
         })
         .then(response => {
