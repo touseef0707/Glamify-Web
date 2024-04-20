@@ -22,19 +22,20 @@
 
             <h2>Checkout Summary</h2>
             <div class="order-summary">
-                {%for i in range(6)%}
-                <div class="item">
-                    <span>Product {{i+1}}</span>
-                    <span>$20.00</span>
-                </div>
-                {%endfor%}
+                {% for i in range(product_data_list|length) %}
+                    <div class="item">
+                        <span>{{ product_data_list[i]['productDisplayName'] }}</span>
+                        <span>{{ quantities[i] }} x</span>
+                        <span>${{ product_data_list[i]['price'] }}</span>
+                    </div>
+                {% endfor %}
                 <div class="coupon">
                     <span><strong>Coupon applied</strong></span>
-                    <span>-5%</span>
+                    <span>-0%</span>
                 </div>
                 <div class="total">
                     <h3><span>Total</span></h3>
-                    <h3><span>$114.00</span></h3>
+                    <h3><span>${{product_data}}</span></h3>
                 </div>
             </div>
         </div>

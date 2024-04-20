@@ -9,6 +9,10 @@ from firebase_admin import credentials, auth, db
 
 # Initialize Flask app
 app = Flask(__name__)
+@app.template_filter()
+def to_int(value):
+    return int(value)
+
 app.register_blueprint(auth_blueprint)
 
 # Applying configuration of flask    ---To be kept secret---
@@ -80,7 +84,7 @@ def store():
      
     # Apply search filter if search query is provided
     if search_query:
-        items = [item for item in items if search_query.lower() in item['productDisplayName'].lower()]
+        items = [item for item in all_items if search_query.lower() in item['productDisplayName'].lower()]
     
     # Apply all other filters
     filtered_items = apply_all_filters(items, filters)
@@ -101,26 +105,49 @@ def add_to_wishlist():
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
     
+# Inside your Flask app
+@app.route('/add_to_cart', methods=['POST'])
+def add_to_cart():
+    data = request.get_json()
+    item_id = data['itemId']
+    quantity = data['quantity']  # Extract quantity from JSON data
+    product_data = get_product_data(all_items, item_id)
+    try:
+        # Add item to the cart collection in Firebase
+        # Also, update the quantity in the database accordingly
+        product_data['quantity'] = quantity
+        db.reference("/cart").child(item_id).set(product_data)
+        return jsonify({'success': True, 'message': 'Item added to cart successfully'}), 200
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 # Route for product page
 @app.route('/product/<gender>/<item_id>')
 def product(gender, item_id):
     product_details = get_product_data(all_items, item_id)
-    print(product_details)
     fe_items = get_random_data(filter_data(dataset[gender]  , 'Innerwear'), 4)
-    return render_template('product.html', product_details=product_details, fe_items=fe_items)
-
-
-
-@app.route('/checkout', methods=['POST'])
-def buy():
-    # Add code here to handle checkout process
-    return redirect(url_for('checkout'))
+    return render_template('product.html', product_details=product_details, fe_items=fe_items, item_id=item_id)
 
 # Route for cart page
 @app.route('/cart')
 def cart():
     return render_template("cart.html")
+
+@app.route('/checkout', methods=['POST','GET'])
+def checkout():
+    # Retrieve the list of product IDs from the URL parameters
+    product_ids = request.args.getlist('product_ids')
+    quantities = request.args.getlist('quantities')
+    # Initialize a list to store the product data
+    product_data_list = []
+
+    # Retrieve the data for each product ID using get_product_data
+    for product_id in product_ids:
+        product_data = get_product_data(all_items, product_id)
+        product_data_list.append(product_data)
+
+    # Render the checkout page and pass the product data to it
+    return render_template('checkout.html', product_data_list=product_data_list, quantities=quantities)
 
 # Route for order details page
 @app.route('/order_details')
@@ -141,10 +168,10 @@ orders = [{"id": "1", "date": "2021-07-07", "total": "1000", "status": "Delivere
 def profile():
     return render_template("profile.html", user = user, orders = orders)
 
-# Route for checkout page
-@app.route('/checkout')
-def checkout():
-    return render_template("checkout.html")
+# # Route for checkout page
+# @app.route('/checkout')
+# def checkout():
+#     return render_template("checkout.html")
 
 # Route for wishlist page
 @app.route('/wishlist')
@@ -164,6 +191,7 @@ def delete_user(user_id):
 
     except Exception as e:
         print("User deletion failed:", e)
+
 
 # delete_user("dX4uGhSITmRoqUosbRxUE1YY3Q13")
 

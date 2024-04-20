@@ -52,7 +52,7 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error veritatis, exercitationem aliquam recusandae reprehenderit odio? Maxime nemo odio laborum molestiae eos consectetur impedit nihil a nesciunt qui sit quam accusantium magnam illo dolorum perspiciatis rerum necessitatibus veritatis, reprehenderit id beatae deserunt quas possimus ex. Obcaecati fuga quisquam eius temporibus fugit?</p>
                     <div class="quantity-dropdown">
                         <label for="quantity">Quantity:</label>
-                        <select class="quantity" data-item-id="{{ product_details.id }}" id="quantity" name="quantity">
+                        <select class="quantity" data-item-id="{{ product_details.id }}" id="quantity_{{ product_details.id }}" name="quantity">
                             <!-- Populate options dynamically based on product quantity -->
                             {% set quantity_int = product_details.quantity | to_int %}
                             {% for qty in range(1, quantity_int + 1) %}
@@ -63,7 +63,11 @@
                     <div class="buttons">
                         <button id="btn-cart" class="button" style="vertical-align:middle"><span>Add to Cart</span></button>
                         <!-- Remove the form tag around the Buy Now button -->
-                        <button id="btn-checkout" class="button" style="vertical-align:middle"><span>Buy Now</span></button>
+                        <button id="btn-checkout" class="button" style="vertical-align:middle">
+                            <a href="{{ url_for('checkout', product_ids=[item_id], quantities=[selected_quantity] )}}">
+                                <span>Buy Now</span>
+                            </a>
+                        </button>
                     </div>
                 </div>
             </div>

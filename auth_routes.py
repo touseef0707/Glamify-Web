@@ -43,6 +43,7 @@ def auth_register():
     return render_template("auth_register.html", form_reg=form_reg)
 
 
+
 # Route for verification page 
 @auth_blueprint.route("/auth_verify", methods=["GET", "POST"])
 def auth_verify():
