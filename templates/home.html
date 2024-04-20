@@ -67,6 +67,7 @@
                 <a href="{{url_for('product', gender=item.gender, item_id=item.id)}}" class="enclosed">
                     <img src="{{ item.link }}" alt="product">
                     <div class="description">
+                        <input type="hidden" id="itemid_{{item.id}}" value="{{ item.id }}">
                         <span>{{item.masterCategory}} / {{item.subCategory}}</span>
                         <h5>{{ item.productDisplayName }}</h5>
                         <div class="stars">
@@ -78,6 +79,7 @@
                         </div>
                         <h4>AED {{ item.price }}</h4>
                     </div>
+                    <a class="cart" href="#"><i class="fa-regular fa-heart" style="color: #096c74;"></i></a>
                 </a>
             </div>
         {% endfor %}
@@ -100,6 +102,7 @@
                 <a href="{{url_for('product', gender=item.gender, item_id=item.id)}}" class="enclosed">
                     <img src="{{ item.link }}" alt="product">
                     <div class="description">
+                        <input type="hidden" id="itemid_{{item.id}}" value="{{ item.id }}">
                         <span>{{item.masterCategory}} / {{item.subCategory}}</span>
                         <h5>{{ item.productDisplayName }}</h5>
                         <div class="stars">
@@ -111,6 +114,7 @@
                         </div>
                         <h4>AED {{ item.price }}</h4>
                     </div>
+                    <a class="cart" href="#"><i class="fa-regular fa-heart" style="color: #096c74;"></i></a>
                 </a>
             </div>
         {% endfor %}
@@ -149,4 +153,9 @@
     </div>
 </section>
 
+{% endblock %}
+
+{% block js_file %}
+<script src="static/js/home.js" type="module"></script>
+<script src="static/js/store.js" type="module"></script>
 {% endblock %}

@@ -473,10 +473,16 @@ body{
     background-color: rgb(0, 0, 0);
     color: var(--color-hover);
 }
+
 #newsletter p{
     color: white;
 }
 
+#newsletter form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 #newsletter input{
     padding: 10px;
     border-radius: 5px;
@@ -785,104 +791,6 @@ footer .socials .icon-links a{
     background-color: black;
 }
 
-#pro-details{
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    grid-gap: 20px;
-    margin: 40px;
-    justify-content: center;
-    align-items: center;
-}
-
-.single-pro-image{
-    border: 2px solid var(--color-4);
-    border-radius: 10px;
-    padding: 10px;
-    width: 60vh;
-    height: 70vh;
-    background-color: white;
-    position: relative;
-}
-.single-pro-image:hover{
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.4);
-    cursor: pointer;
-}
-.single-pro-image img{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.sub-details{
-    margin-top: 20px;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-}
-
-.button{
-    display: inline-block;
-    border-radius: 4px;
-    background-color: var(--color-4);
-    border: none;
-    color: #FFFFFF;
-    text-align: center;
-    font-size: 18px;
-    font-weight: 700;
-    padding: 10px;
-    transition: all 0.5s;
-    cursor: pointer;
-    margin: 5px;
-}
-
-.button span{
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    transition: 0.5s;
-}
-
-.button span:after{
-    content: '\00bb';
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    right: -20px;
-    transition: 0.5s;
-}
-
-.button:hover span{
-    padding-right: 25px;
-}
-
-.button:hover span:after{
-    opacity: 1;
-    right: 0;
-}
-
-.quantity-dropdown {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    width: fit-content; /* Adjust the width as needed */
-}
-
-.quantity-dropdown label {
-    display: inline-block;
-    font-weight: bold;
-}
-
-.quantity-dropdown select {
-    width: 100%;
-    padding: 0 10px 0 10px; 
-    border: none;
-    outline: none;
-}
 
 
 /* About Page */

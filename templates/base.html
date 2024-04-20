@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block title %} {% endblock %}
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
-    <link rel="stylesheet" href="static/css/home.css">
-    {% block css_file %} {% endblock %}
+    
+    {% block css_file %} 
+        <link rel="stylesheet" href="static/css/home.css">
+    {% endblock %}
 </head>
 <body>
 
@@ -32,16 +34,19 @@
             <h2>Subscribe to our Newsletter</h2>
             <p>Get the latest updates on new products and upcoming sales</p>
         </div>
-        <form action="">
+        <form class="form-newsletter" action="">
             <input type="email" placeholder="Enter your email">
             <button class="button" style="vertical-align:middle"><span>Subscribe</span></button>
         </form>
     </section>
 
     <footer class="section-p1">
-        <div class="logo">
-            <a href="/"><img src="static/images/logos/logo.png" alt="logo" class="logo"></a>
-        </div>
+        
+        {% block logo %} 
+            <div class="logo">
+                <a href="/"><img src="static/images/logos/logo.png" alt="logo" class="logo"></a>
+            </div>
+        {% endblock %}
 
         <div class="footer-column">
             <div class="address">
@@ -120,8 +125,9 @@
         
         {% endblock %}
     </div>
-    {% block js_file %} {% endblock %}
-    <script src="static/js/home.js" type="module"></script>
+    {% block js_file %} 
+        <script src="static/js/home.js" type="module"></script>
+    {% endblock %}
     <script src="https://kit.fontawesome.com/a1597cdc8f.js" crossorigin="anonymous"></script>
 </body>
 </html>

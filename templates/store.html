@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} <title>Store</title> {% endblock %}
 
+
 {% block navlinks %}
 <li><a href="/">Home</a></li>
 <li><a class="active" href="/store">Store</a></li>                
@@ -11,7 +12,7 @@
 <!--Example<-->
 <li><a href="/profile"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
 {% else %}
-<li><ahref="/auth_register"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></ahref=></li>
+<li><a href="/auth_register"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
 {% endif %}
 
 {% endblock %}

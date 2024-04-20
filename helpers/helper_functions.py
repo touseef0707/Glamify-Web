@@ -195,17 +195,31 @@ def apply_all_filters(products, filters):
     return filtered_products
 
 
-# retrieve product details using binary search
+# retrieve product details
 def get_product_data(arr, id):
-    l = 0
-    r = len(arr) - 1
-    while l <= r:
-        mid = l + (r - l) // 2
-        if arr[mid]['id'] == id:
-            return arr[mid]
-        elif arr[mid]['id'] < id:
-            l = mid + 1
+
+    # using binary search
+    def binary_search(arr, low, high, x):
+        # type conversion so that comparisons are performed properly
+        x = int(x)
+
+        # Check base case
+        if high >= low:
+            # Find the middle index
+            mid = low + (high - low) // 2
+
+            # If element is present at the middle itself
+            if int(arr[mid]['id']) == x:
+                return mid
+            
+            # If element is smaller than mid, then it can only be present in left subarray
+            elif int(arr[mid]['id']) > x:
+                return binary_search(arr, low, mid - 1, x)
+            
+            # Else the element can only be present in right subarray
+            else:
+                return binary_search(arr, mid + 1, high, x)
         else:
-            r = mid - 1
-    return None
+            return None
     
+    return arr[binary_search(arr, 0, len(arr) - 1, id)]

@@ -2,6 +2,7 @@
 
 {% block title %} <title>Login</title> {% endblock %}
 {% block css_file %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/log.css') }}">
 {% endblock %}
 
@@ -37,7 +38,11 @@
     </section>
  
 {% endblock %}
-
+{% block logo %} 
+<div class="logo">
+    <a href="/"><img src="{{ url_for('static', filename='images/logos/logo.png') }}" alt="logo" class="logo"></a>
+</div>
+{% endblock %}
 {% block js_file %}
 <script src="{{ url_for('static', filename='js/auth_login.js') }}"></script>
 {% endblock %}

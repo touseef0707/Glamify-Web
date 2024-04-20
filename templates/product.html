@@ -2,6 +2,7 @@
 {% block title %} <title>Product Details</title> {% endblock %}
 {% block css_file %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/product.css') }}">
 {% endblock %}
 
 {% block navlinks %}
@@ -22,10 +23,10 @@
 
 {% block maincontent %}
     <section id="pro-details" class="section-p1">
+        <input type="hidden" id="itemid_{{product_details.id}} value="{{product_details.id}}">
         <div class="single-pro-image">
             <img src="{{product_details.link}}" alt="product image">
         </div>
-
         <div class="details">
             <h2>{{product_details.productDisplayName}}</h2>
             <div class="stars">
@@ -51,29 +52,26 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error veritatis, exercitationem aliquam recusandae reprehenderit odio? Maxime nemo odio laborum molestiae eos consectetur impedit nihil a nesciunt qui sit quam accusantium magnam illo dolorum perspiciatis rerum necessitatibus veritatis, reprehenderit id beatae deserunt quas possimus ex. Obcaecati fuga quisquam eius temporibus fugit?</p>
                     <div class="quantity-dropdown">
                         <label for="quantity">Quantity:</label>
-                        <select id="quantity" name="quantity">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
+                        <select class="quantity" data-item-id="{{ product_details.id }}" id="quantity" name="quantity">
+                            <!-- Populate options dynamically based on product quantity -->
+                            {% set quantity_int = product_details.quantity | to_int %}
+                            {% for qty in range(1, quantity_int + 1) %}
+                            <option value="{{ qty }}">{{ qty }}</option>
+                            {% endfor %}
                         </select>
-                        
                     </div>
                     <div class="buttons">
-                        <form action="/add_to_cart" method="POST">
-                            <button class="button" style="vertical-align:middle" type="submit"><span>Add to Cart</span></button>
-                        </form>
-                        <form action="/checkout" method="POST">
-                            <button class="button" style="vertical-align:middle" type="submit"><span>Buy Now</span></button>
-                        </form></div>
+                        <button id="btn-cart" class="button" style="vertical-align:middle"><span>Add to Cart</span></button>
+                        <!-- Remove the form tag around the Buy Now button -->
+                        <button id="btn-checkout" class="button" style="vertical-align:middle"><span>Buy Now</span></button>
+                    </div>
                 </div>
             </div>
-            
         </div>
-
     </section>
   
     <section id="fe-products" class="section-p1">
-        <h2>Featured Products</h2>
+        <h2>Related Products</h2>
         <p>Brand New Collections with Aesthetic Designs</p>
         
         <div class="products-container">
@@ -82,6 +80,7 @@
                 <a class="enclosed" href="{{ url_for('product', gender=item.gender, item_id=item.id) }}">
                     <img src="{{ item.link }}" alt="product">
                     <div class="description">
+                        <input type="hidden" id="itemid_{{item.id}}" value="{{ item.id }}">
                         <span>{{item.masterCategory}} / {{item.subCategory}}</span>
                         <h5>{{ item.productDisplayName }}</h5>
                         <div class="stars">
@@ -93,10 +92,21 @@
                         </div>
                         <h4>AED {{ item.price }}</h4>
                     </div>
-                    <a class = "cart" href="#"><i class="fa-solid fa-cart-shopping" style="color: #096c74;"></i></a>
+                    <a class = "cart" href="#"><i class="fa-regular fa-heart" style="color: #096c74;"></i></a>
                 </a>
             </div>
             {% endfor %}
         </div>
     </section>
+{% endblock %}
+
+{% block logo %} 
+<div class="logo">
+    <a href="/"><img src="{{url_for('static', filename='images/logos/logo.png')}}" alt="logo" class="logo"></a>
+</div>
+{% endblock %}
+
+{% block js_file %}
+<script src="{{url_for('static', filename='js/product.js')}}"></script>
+<script src="{{url_for('static', filename='js/store.js')}}"></script>
 {% endblock %}
