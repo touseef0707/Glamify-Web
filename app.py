@@ -6,6 +6,7 @@ from auth_routes import auth_blueprint
 import random
 import firebase_admin
 from firebase_admin import credentials, auth, db
+from flask import session
 
 # Initialize Flask app
 app = Flask(__name__)
@@ -108,15 +109,21 @@ def add_to_wishlist():
 # Inside your Flask app
 @app.route('/add_to_cart', methods=['POST'])
 def add_to_cart():
+
+    # Get the user object from Firebase Authentication and login session
+    user = auth.get_user(session.get("user_id"))
+    username = user.display_name
+
+    # Get the item ID and quantity from the request data
     data = request.get_json()
-    item_id = data['itemId']
-    quantity = data['quantity']  # Extract quantity from JSON data
-    product_data = get_product_data(all_items, item_id)
+
+    # Get the product data for the item ID and update quantity field for cart
+    product_data = get_product_data(all_items, data['itemId'])
+    product_data['quantity'] = data['quantity']
+
+    # try to add the item to the cart in the database
     try:
-        # Add item to the cart collection in Firebase
-        # Also, update the quantity in the database accordingly
-        product_data['quantity'] = quantity
-        db.reference("/cart").child(item_id).set(product_data)
+        db.reference(f"/users/{username}/cart").child(data['itemId']).set(product_data)
         return jsonify({'success': True, 'message': 'Item added to cart successfully'}), 200
     except Exception as e:
         return jsonify({'success': False, 'error': str(e)}), 500
@@ -133,32 +140,56 @@ def product(gender, item_id):
 def cart():
     return render_template("cart.html")
 
-@app.route('/checkout', methods=['POST','GET'])
+@app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
-    # Retrieve the list of product IDs from the URL parameters
-    product_ids = request.args.getlist('product_ids')
-    quantities = request.args.getlist('quantities')
-    # Initialize a list to store the product data
-    product_data_list = []
+    # Get the source of the request
+    source = request.args.get('source')
 
-    # Retrieve the data for each product ID using get_product_data
-    for product_id in product_ids:
+    # Get the user object from Firebase Authentication and login session
+    user = auth.get_user(session.get("user_id"))
+    username = user.display_name
+
+    # If the source is product page and the request method is POST
+    if source == 'product' and request.method == 'POST':
+
+        # Get the product ID and quantity from the form data
+        product_id = request.form['product_id']
+        quantity = request.form['quantity']
+
+        # Get the product data for the product ID
         product_data = get_product_data(all_items, product_id)
-        product_data_list.append(product_data)
+        product_data['quantity'] = quantity
 
-    # Render the checkout page and pass the product data to it
-    return render_template('checkout.html', product_data_list=product_data_list, quantities=quantities)
+        # Render the checkout page template with the product data and quantity
+        return render_template('checkout.html', product_data_list=[product_data], quantities=[quantity])
+    
+    elif source == 'cart' and request.method == 'POST':
 
+        # Get the cart items from the database
+        cart_items = db.reference(f"/users/{username}/cart").get()
+
+        # Initialize empty lists for product data's and quantities
+        product_data_list = []
+        quantities = []
+
+        # If cart items exist
+        if cart_items:
+
+            # Loop through the cart items and append the product data and quantity to the lists
+            for item_id, item_data in cart_items.items():
+                item_data['price'] = float(item_data['price'])
+                product_data_list.append(item_data)
+                quantities.append(int(item_data['quantity']))
+
+            # Render the checkout page template with the product data and quantities
+            return render_template('checkout.html', product_data_list=product_data_list, quantities=quantities)
+        
 # Route for order details page
 @app.route('/order_details')
 def order_details():
     return render_template("order_details.html")
 
-# dummy user information and orders
-user = {"display_name":"rainyjoke","firstname": "Touseef", "lastname": "Ahmed", 
-        "email": "touseefahmed0707@gmail.com", "phone": "+971234567890",
-        "address" : "ABCD 1234 Street"}
-
+# Sample order data
 orders = [{"id": "1", "date": "2021-07-07", "total": "1000", "status": "Delivered"},
           {"id": "2", "date": "2021-07-07", "total": "2000", "status": "Delivered"},
           {"id": "3", "date": "2021-07-07", "total": "3000", "status": "Delivered"}]
@@ -166,12 +197,14 @@ orders = [{"id": "1", "date": "2021-07-07", "total": "1000", "status": "Delivere
 # Route for profile page
 @app.route('/profile')
 def profile():
-    return render_template("profile.html", user = user, orders = orders)
+    # Get the user object from Firebase Authentication and login session
+    user = auth.get_user(session.get("user_id"))
+    display_name = user.display_name
 
-# # Route for checkout page
-# @app.route('/checkout')
-# def checkout():
-#     return render_template("checkout.html")
+    # update the user object with the data from the database
+    user = db.reference("/users").child(user.display_name).get()
+
+    return render_template("profile.html", user = user, orders = orders, display_name = display_name)
 
 # Route for wishlist page
 @app.route('/wishlist')
@@ -184,20 +217,15 @@ def delete_user(user_id):
     try:
         # Get user object
         user = auth.get_user(user_id)
+
         # Delete user from Firebase Authentication
         auth.delete_user(user_id)
+
         # Delete user from Firebase Realtime Database
         db.reference("/users").child(user.display_name).delete()
 
     except Exception as e:
         print("User deletion failed:", e)
-
-
-# delete_user("dX4uGhSITmRoqUosbRxUE1YY3Q13")
-
-# from helpers.helper_functions import write_data_to_textfile, read_csv_and_create_dictionary
-
-# write_data_to_textfile(read_csv_and_create_dictionary("static/dataset/final_dataset.csv"),"static/dataset/dictionary_dataset.txt")
 
 if __name__ == '__main__':
     app.run(debug=True)
