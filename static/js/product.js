@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const addToCartButton = document.getElementById('btn-cart');
     
     addToCartButton.addEventListener('click', function(event) {
-        // Prevent default form submission behavior
-        event.preventDefault();
 
         // Extract product ID from the data attribute
         const productId = document.querySelector('.quantity').dataset.itemId;
@@ -33,6 +31,8 @@ document.addEventListener('DOMContentLoaded', function() {
         .catch(error => {
             console.error(error);
         });
+        // Prevent default form submission behavior
+        event.preventDefault();
     });
 });
 

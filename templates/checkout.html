@@ -15,27 +15,40 @@
     </section>
 
     <div class="checkout-container">
-        <!-- <div class="image-container">
-            <img src="static/images/illustrations/payments.png" width="80%" alt="">
-        </div> -->
+        
         <div class="checkout-section">
 
             <h2>Checkout Summary</h2>
             <div class="order-summary">
+                <div class="table-header">
+                    <span>Name</span>
+                    <span>Unit Price</span>
+                    <span>Quantity</span>
+                    <span>Total Price</span>
+                </div>
                 {% for i in range(product_data_list|length) %}
                     <div class="item">
                         <span>{{ product_data_list[i]['productDisplayName'] }}</span>
-                        <span>{{ quantities[i] }} x</span>
                         <span>${{ product_data_list[i]['price'] }}</span>
+                        <span>{{ quantities[i] }}</span>
+                        <span>{{ "${:.2f}".format(product_data_list[i]['price'] * quantities[i]) }}</span>
                     </div>
                 {% endfor %}
-                <div class="coupon">
-                    <span><strong>Coupon applied</strong></span>
-                    <span>-0%</span>
+                <div class="total">
+                    <h3><span><strong>Coupon applied</strong></span></h3>
+                    <h3><span>-0%</span></h3>
+                </div>
+                <div class="total">
+                    <h3><span>Tax</span></h3>
+                    <h3><span>${{tax}}</span></h3>
+                </div>
+                <div class="total">
+                    <h3><span>Shipping</span></h3>
+                    <h3><span>${{shipping}}</span></h3>
                 </div>
                 <div class="total">
                     <h3><span>Total</span></h3>
-                    <h3><span>${{product_data}}</span></h3>
+                    <h3><span>${{ grand_total }}</span></h3>
                 </div>
             </div>
         </div>
@@ -49,16 +62,17 @@
                     </label>
                 </div>
                 <div class="form-group" id="saved-address-section" style="display: none;">
-                    <!-- Your code to display the saved address from the user's profile here -->
-                    <!-- For demonstration purposes, I'm using placeholders -->
                     <label>Saved Address</label>
                     <p>John Doe</p>
                     <p>123 Main St</p>
                     <p>New York, NY 10001</p>
+                    <p>Phone: 123-456-7890</p>
                 </div>
                 <div class="form-group" id="new-address-section">
                     <label for="fullname">Full Name</label>
                     <input type="text" id="fullname" name="fullname" required>
+                    <label for="phone">Phone Number</label>
+                    <input type="text" id="phone" name="phone" required>
                     <label for="address">Address</label>
                     <input type="text" id="address" name="address" required>
                     <label for="city">City</label>
@@ -67,27 +81,11 @@
                     <input type="text" id="zipcode" name="zipcode" required>
                 </div>
                 <div class="buttons">
-                    <button type="submit">Cash On Delivery</button>
+                    <button id="pay" type="submit">Cash On Delivery</button>
                     <button type="button" onclick="window.history.back()">Back</button>
                 </div>
             </form>
         </div>
-        
-        <script>
-            document.getElementById("use-saved-address").addEventListener("change", function() {
-                var savedAddressSection = document.getElementById("saved-address-section");
-                var newAddressSection = document.getElementById("new-address-section");
-                if (this.checked) {
-                    savedAddressSection.style.display = "block";
-                    newAddressSection.style.display = "none";
-                } else {
-                    savedAddressSection.style.display = "none";
-                    newAddressSection.style.display = "block";
-                }
-            });
-        </script>
-        
-        
     </div>
 </body>
 </html>

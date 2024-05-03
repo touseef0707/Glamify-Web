@@ -22,7 +22,9 @@
     --color-7: #00948d5e;
     --color-body: #DAFFFB;
     --color-hover: #9af5ed;
+    --color-warning-text: rgb(0, 247, 185);
 }
+
 
 #cart {
     display: grid;
@@ -47,12 +49,11 @@
     z-index: 1; /* Ensure the header stays above the tbody content */
 }
 
-
 .table th,
 .table td {
     padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    text-align: center;
+    border-bottom: 1px solid cyan;
 }
 
 .table th {
@@ -172,4 +173,82 @@
     outline: none;
     border-color: #63E6BE;
     box-shadow: 0 0 5px #63E6BE;
+}
+
+.alert {
+    background: var(--color-4);
+    color: var(--color-warning-text);
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    min-width: 400px;
+    position: absolute;
+    right: 0;
+    top: 100px;
+    border-left: 9px solid var(--color-header);
+    overflow: hidden;
+}
+
+.alert.show{
+    animation: show_slide 1s ease forwards;
+}
+
+@keyframes show_slide{
+    0%{
+        transform: translateX(100%);
+    }
+    25%{
+        transform: translateX(-10%);
+    }
+    80%{
+        transform: translateX(0%);
+    }
+    100%{
+        transform: translateX(-10px);
+    }
+
+}
+.alert.hide{
+    display: none;
+}
+
+.alert .fa-exclamation-circle {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 27px; /* Adjusted font size */
+    color: var(--color-warning-text);
+    margin-right: 10px;
+}
+
+.alert .msg {
+    padding: 5px 20px; /* Adjusted padding */
+    margin-left: 20px ;
+    font-size: 18px;
+}
+
+.alert .close-btn {
+    position: absolute;
+    right: 0px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--color-header);
+    padding: 15.5px;
+    border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.close-btn:hover {
+    background: var(--color-3);
+    .fa-times {
+        color: var(--color-4);
+    }
+}
+
+.close-btn .fa-times {
+    color: var(--color-warning-text);
+    font-size: 20px;
+    line-height: 40px;
 }

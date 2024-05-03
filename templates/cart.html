@@ -29,6 +29,14 @@
         </div>
     </section>
 
+    <div class="alert show">
+        <span class="fas fa-exclamation-circle"></span>
+        <span class="msg">Warning: Your cart is empty!</span>
+        <span class="close-btn">
+            <span class="fas fa-times"></span>
+        </span>
+    </div>
+
     <section id="cart" class="section-p1">
         <div class="table-container">
             <table class="table">
@@ -44,18 +52,18 @@
                   </tr>
                 </thead>
                 <tbody>
-                    {% for i in range(10)%}
+                    {% for i in range(product_data_list | length) %}
                         <tr>
                             <th scope="row">{{i+1}}</th>
-                            <td><img src="static/images/models/modelone.jpg" alt="Product 1"></td>
-                            <td><h3>Product Name {{i+1}}</h3></td>
-                            <td><p>$10.00</p></td>
+                            <td><img src="{{product_data_list[i]['link']}}" alt="Product image"></td>
+                            <td><h3>{{product_data_list[i]['productDisplayName']}}</h3></td>
+                            <td><p>${{product_data_list[i]['price']}}</p></td>
                             <td>
                                 <button class="decrement-quantity-btn" onclick="decrementQuantity(this)">-</button>
                                 <span class="quantity">1</span>
                                 <button class="increment-quantity-btn" onclick="incrementQuantity(this)">+</button>
                             </td>
-                            <td><p>$10.00</p></td>
+                            <td><p>{{ "${:.2f}".format(product_data_list[i]['price'] * product_data_list[i]['quantity']) }}</p></td>
                             <td><button class="remove-item-btn" onclick="removeCartItem(this)"><i class="fas fa-trash-alt"></i></button></td>
                         </tr>
                     {% endfor %}
@@ -78,20 +86,26 @@
                         <h4>Total</h4>
                     </div>
                     <div>
-                        <h4>3</h4>
-                        <h4>$30.00</h4>
-                        <h4>$3.00</h4>
-                        <h4>$0.00</h4>
-                        <h4>$33.00</h4>
+                        <h4>${{product_data_list | length}}</h4>
+                        <h4>${{total_sum}}</h4>
+                        <h4>${{tax}}</h4>
+                        <h4>${{shipping}}</h4>
+                        <h4>${{grand_total}}</h4>
                     </div>
                 </div>
             </div>
-            <form action="" method="post">
+            <form action="{{ url_for('checkout', source='cart') }}" method="post">
                 <input type="text" id="coupon" placeholder="Apply Coupon (optional)">
                 <button class="checkout-btn">Checkout</button>
             </form>
         </div>
-        
     </section>
+
     
+{% endblock %}
+
+{% block js_file %}
+<script src="static/js/cart.js"></script>
+<script src="src="https://code.jquery.com/jquery-3.7.1.js""></script>
+
 {% endblock %}

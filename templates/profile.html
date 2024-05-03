@@ -30,11 +30,11 @@
                 
                 <div>
                     <h2>Personal Information</h2>
-                    <p id="username"><i class="fa-solid fa-user" style="color: #083e62;"></i><strong>{{user.display_name}}</strong></p>
-                    <p><strong>Full Name: </strong> {{ user.firstname+' '+user.lastname}}</p>
+                    <p id="username"><i class="fa-solid fa-user" style="color: #083e62;"></i><strong>{{display_name}}</strong></p>
+                    <p><strong>Full Name: </strong> {{ user.first_name+' '+user.last_name}}</p>
                     <p><strong>Email: </strong><a href="mailto:" class="email">{{user.email}}</a></p>
                     <p><strong>Phone: </strong> +971 522 774 769</p>
-                    <p><strong>Address: </strong> {{user.address}}</p>
+                    <p><strong>Address: </strong> {{user.location}}</p>
                     <div class="acc">
                         <a href="/profile_edit" class="button">Edit Profile</a>
                         <a href="/auth_logout" class="button">Logout</a>

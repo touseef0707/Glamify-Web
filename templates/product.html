@@ -23,55 +23,54 @@
 
 {% block maincontent %}
     <section id="pro-details" class="section-p1">
-        <input type="hidden" id="itemid_{{product_details.id}} value="{{product_details.id}}">
-        <div class="single-pro-image">
-            <img src="{{product_details.link}}" alt="product image">
-        </div>
-        <div class="details">
-            <h2>{{product_details.productDisplayName}}</h2>
-            <div class="stars">
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
-                <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+        <form action="{{ url_for('checkout', source='product' ) }}" method="post">
+            <input type="hidden" id="itemid_{{product_details.id}} value="{{product_details.id}}">
+            <input type="hidden" name="product_id" value="{{ product_details.id }}">
+            
+            <div class="single-pro-image">
+                <img src="{{product_details.link}}" alt="product image">
             </div>
-            <h2>AED {{product_details.price}}</h2>
-            <div class="sub-details">
-                <div class="sub-details-1">
-                    <h3>Product Details</h3>
-                    <p><strong>Gender: </strong>{{product_details.gender}}</p>
-                    <p><strong>Type: </strong>{{product_details.masterCategory}}</p>
-                    <p><strong>Item: </strong>{{product_details.articleType}}</p>
-                    <p><strong>Base Colour: </strong>{{product_details.baseColour}}</p>
-                    <p><strong>Season: </strong>{{product_details.season}}</p>
-                    <p><strong>Usage: </strong>{{product_details.usage}}</p>
+            <div class="details">
+                <h2>{{product_details.productDisplayName}}</h2>
+                <div class="stars">
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                    <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
                 </div>
-                <div class="sub-details-2">
-                    <h3>Breif Description</h3>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error veritatis, exercitationem aliquam recusandae reprehenderit odio? Maxime nemo odio laborum molestiae eos consectetur impedit nihil a nesciunt qui sit quam accusantium magnam illo dolorum perspiciatis rerum necessitatibus veritatis, reprehenderit id beatae deserunt quas possimus ex. Obcaecati fuga quisquam eius temporibus fugit?</p>
-                    <div class="quantity-dropdown">
-                        <label for="quantity">Quantity:</label>
-                        <select class="quantity" data-item-id="{{ product_details.id }}" id="quantity_{{ product_details.id }}" name="quantity">
-                            <!-- Populate options dynamically based on product quantity -->
-                            {% set quantity_int = product_details.quantity | to_int %}
-                            {% for qty in range(1, quantity_int + 1) %}
-                            <option value="{{ qty }}">{{ qty }}</option>
-                            {% endfor %}
-                        </select>
+                <h2>AED {{product_details.price}}</h2>
+                <div class="sub-details">
+                    <div class="sub-details-1">
+                        <h3>Product Details</h3>
+                        <p><strong>Gender: </strong>{{product_details.gender}}</p>
+                        <p><strong>Type: </strong>{{product_details.masterCategory}}</p>
+                        <p><strong>Item: </strong>{{product_details.articleType}}</p>
+                        <p><strong>Base Colour: </strong>{{product_details.baseColour}}</p>
+                        <p><strong>Season: </strong>{{product_details.season}}</p>
+                        <p><strong>Usage: </strong>{{product_details.usage}}</p>
                     </div>
-                    <div class="buttons">
-                        <button id="btn-cart" class="button" style="vertical-align:middle"><span>Add to Cart</span></button>
-                        <!-- Remove the form tag around the Buy Now button -->
-                        <button id="btn-checkout" class="button" style="vertical-align:middle">
-                            <a href="{{ url_for('checkout', product_ids=[item_id], quantities=[selected_quantity] )}}">
-                                <span>Buy Now</span>
-                            </a>
-                        </button>
+                    <div class="sub-details-2">
+                        <h3>Breif Description</h3>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Error veritatis, exercitationem aliquam recusandae reprehenderit odio? Maxime nemo odio laborum molestiae eos consectetur impedit nihil a nesciunt qui sit quam accusantium magnam illo dolorum perspiciatis rerum necessitatibus veritatis, reprehenderit id beatae deserunt quas possimus ex. Obcaecati fuga quisquam eius temporibus fugit?</p>
+                        <div class="quantity-dropdown">
+                            <label for="quantity">Quantity:</label>
+                            <select class="quantity" data-item-id="{{ product_details.id }}" id="quantity_{{ product_details.id }}" name="quantity">
+                                <!-- Populate options dynamically based on product quantity -->
+                                {% set quantity_int = product_details.quantity | to_int %}
+                                {% for qty in range(1, quantity_int + 1) %}
+                                <option value="{{ qty }}">{{ qty }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="buttons">
+                            <button id="btn-cart" class="button" style="vertical-align:middle"><span>Add to Cart</span></button>
+                            <button id="btn-checkout" class="button" type="submit" style="vertical-align:middle"><span>Buy Now</span></button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </section>
   
     <section id="fe-products" class="section-p1">
@@ -101,6 +100,56 @@
             </div>
             {% endfor %}
         </div>
+    </section>
+    <br>
+
+    <section id="reviews-section">
+        <form  class='review-form' action="add-reviews" method="post">
+            <label for="rating">Rate the product:</label>
+            <div class="rating-stars">
+                <input type="radio" name="rating" id="rating-1" value="1" required>
+                <label for="rating-1" class="fa-solid fa-star"></label>
+                <input type="radio" name="rating" id="rating-2" value="2">
+                <label for="rating-2" class="fa-solid fa-star"></label>
+                <input type="radio" name="rating" id="rating-3" value="3">
+                <label for="rating-3" class="fa-solid fa-star"></label>
+                <input type="radio" name="rating" id="rating-4" value="4">
+                <label for="rating-4" class="fa-solid fa-star"></label>
+                <input type="radio" name="rating" id="rating-5" value="5">
+                <label for="rating-5" class="fa-solid fa-star"></label>
+            </div>
+
+
+    
+            <label for="review">Review:</label>
+            <textarea id="review" name="review" rows="4" required></textarea>
+    
+            <input type="submit" value="Submit Review">
+        </form>
+
+        <div class="reviews">
+            <h2>Reviews</h2>
+            <div class="review">
+                {% for i in range(10) %}
+                <div class="review-card">
+                    <div class="reviewer">
+                        <img src="{{url_for('static', filename='images/pfp1.jpg')}}" alt="user">
+                        <h4>John Doe</h4>
+                        <div class="rating">
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                            <i class="fa-solid fa-star" style="color: #FFD43B;"></i>
+                        </div>
+                    </div>
+                    
+                    <p>Lorem ipsum  Error veritatis, exercitationem aliquam recusandae reprehenderit odio? Maxime nemo odio laborum molestiae eos consectetur impedit nihil a nesciunt qui sit quam accusantium magnam illo dolorum perspiciatis rerum necessitatibus veritatis, reprehenderit id beatae deserunt quas possimus ex. Obcaecati fuga quisquam eius temporibus fugit?</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
     </section>
 {% endblock %}
 

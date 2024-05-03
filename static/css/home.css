@@ -28,6 +28,23 @@
     --color-hover: #9af5ed;
 }
 
+
+::-webkit-scrollbar {
+    width: 5px; /* Width of the scrollbar */
+    height: 5px;
+  }
+  
+::-webkit-scrollbar-thumb {
+    background-color: cyan; /* Color of the thumb */
+    border-radius: 5px; /* Rounded corners */
+    /* border: 0.5px solid cyan; */
+}
+
+::-webkit-scrollbar-track {
+    background-color: black; /* Color of the track */
+}
+
+
 h1{
     font-size: var(--text-4xl);
     color: #222;

@@ -1,5 +1,5 @@
 # Import necessary modules
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for, flash
 from helpers.dictionary_dataset import dataset
 from helpers.helper_functions import filter_data, get_random_data, apply_all_filters, get_product_data
 from auth_routes import auth_blueprint
@@ -138,15 +138,47 @@ def product(gender, item_id):
 # Route for cart page
 @app.route('/cart')
 def cart():
-    return render_template("cart.html")
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for('auth.auth_login'))
+    
+    product_data_list = []
+    user = auth.get_user(user_id)
+    username = user.display_name
+    ref = db.reference(f"/users/{username}/cart")
+    cart_items = ref.get()
+    total_sum, tax, grand_total, shipping = 0, 0, 0, 0
+    if cart_items:
+        for product_id, product_data in cart_items.items():
+            product_data['price'] = float(product_data['price'])
+            product_data['quantity'] = int(product_data['quantity'])
+            product_data_list.append(product_data)
+            total_sum += product_data['price'] * product_data['quantity']
+        tax = round(0.05 * total_sum, 2)
+        shipping = 15
+        grand_total = total_sum + tax + shipping
+    return render_template("cart.html", product_data_list=product_data_list, total_sum=total_sum, tax=tax, shipping=shipping, grand_total=grand_total)
+      
+# function to check if cart is not empty
+def check_cart_empty(username):
+    cart_items = db.reference(f"/users/{username}/cart").get()
+    if not cart_items:
+        return True
+    return False
+
+
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkout():
     # Get the source of the request
     source = request.args.get('source')
 
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for('auth.auth_login'))
+
     # Get the user object from Firebase Authentication and login session
-    user = auth.get_user(session.get("user_id"))
+    user = auth.get_user(user_id)
     username = user.display_name
 
     # If the source is product page and the request method is POST
@@ -154,16 +186,21 @@ def checkout():
 
         # Get the product ID and quantity from the form data
         product_id = request.form['product_id']
-        quantity = request.form['quantity']
+        quantity = int(request.form['quantity'])
 
         # Get the product data for the product ID
         product_data = get_product_data(all_items, product_id)
+        product_data['price'] = float(product_data['price'])
         product_data['quantity'] = quantity
 
+        total_sum = product_data['price'] * quantity
+        tax = round(0.05 * total_sum, 2)
+        shipping = 15
+        grand_total = total_sum + tax + shipping
         # Render the checkout page template with the product data and quantity
-        return render_template('checkout.html', product_data_list=[product_data], quantities=[quantity])
+        return render_template('checkout.html', product_data_list=[product_data], quantities=[quantity], total_sum=total_sum, tax=tax, shipping=shipping, grand_total=grand_total)
     
-    elif source == 'cart' and request.method == 'POST':
+    elif source == 'cart' and request.method == 'POST' and not check_cart_empty(username):
 
         # Get the cart items from the database
         cart_items = db.reference(f"/users/{username}/cart").get()
@@ -174,16 +211,50 @@ def checkout():
 
         # If cart items exist
         if cart_items:
-
+            total_sum = 0
             # Loop through the cart items and append the product data and quantity to the lists
-            for item_id, item_data in cart_items.items():
-                item_data['price'] = float(item_data['price'])
-                product_data_list.append(item_data)
-                quantities.append(int(item_data['quantity']))
-
+            for product_id, product_data in cart_items.items():
+                product_data['price'] = float(product_data['price'])
+                product_data_list.append(product_data)
+                quantities.append(int(product_data['quantity']))
+                total_sum += product_data['price'] * int(product_data['quantity'])
+            tax = round(0.05 * total_sum, 2)
+            shipping = 15
+            grand_total = total_sum + tax + shipping
             # Render the checkout page template with the product data and quantities
-            return render_template('checkout.html', product_data_list=product_data_list, quantities=quantities)
-        
+            return render_template('checkout.html', product_data_list=product_data_list, quantities=quantities, total_sum=total_sum, tax=tax, shipping=shipping, grand_total=grand_total)
+    
+    else:
+         
+        return redirect(url_for('cart'))
+
+
+@app.route('/complete_order', methods=['POST'])
+def complete_order():
+    user_id = session.get("user_id")
+    user = auth.get_user(user_id)
+    username = user.display_name
+
+    # Get the cart items from the database
+    cart_items = db.reference(f"/users/{username}/cart").get()
+
+    # set the order id by having username_{{one more than orders count in firebase}}
+    order_id = f"{username}_{len(db.reference(f'/users/{username}/orders').get()) + 1}"
+    # Set order current date and time using datetime module
+    import datetime
+    order_date = datetime.datetime.now().strftime("%Y-%m-%d")
+    order_time = datetime.datetime.now().strftime("%H:%M:%S")
+    
+
+    #now set the cart_items to the orders
+    db.reference(f"/users/{username}/orders").set(cart_items)
+
+    #delete the cart
+    db.reference(f"/users/{username}/cart").delete()
+
+    return redirect(url_for('home'))
+
+
 # Route for order details page
 @app.route('/order_details')
 def order_details():
