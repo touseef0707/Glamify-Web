@@ -12,12 +12,13 @@
 <li><a href="/store">Store</a></li>                
 <li><a href="/about">About</a></li>
 <li><a href="/contact">Contact</a></li>
+<li><a class="active" href="/wishlist"><i class="fa-solid fa-heart" style="color: #63E6BE;"></i></a></li>
 <li><a href="/cart"><i class="fa-solid fa-bag-shopping" style="color: #63E6BE;"></i></a></li>
 {% if session['user_id'] %}
 <!--Example<-->
-<li><a class="active" href="/profile"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
+<li><a href="/profile"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
 {% else %}
-<li><a class="active" href="/auth_register"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
+<li><a href="/auth_register"><i class="fa-solid fa-user" style="color: #63E6BE;"></i></a></li>
 {% endif %}
 
 {% endblock %}
