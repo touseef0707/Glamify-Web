@@ -28,6 +28,15 @@ app.config['RECAPTCHA_DATA_ATTRS'] = { 'size': 'normal'}
 cred = credentials.Certificate("glamify-fbase-secret-key.json")
 firebase_admin.initialize_app(cred, {'databaseURL': "https://glamify-0707-default-rtdb.asia-southeast1.firebasedatabase.app/"})
 
+# Get a session username
+def get_session_username():
+    try:
+        user = auth.get_user(session.get("user_id"))
+        username = user.display_name
+        return username
+    except Exception as e:
+        print("Error getting session username:", e)
+        return None
 
 # get all items into one list
 dm = filter_data(dataset['Men'], 'Innerwear')
@@ -97,13 +106,15 @@ def store():
 def add_to_wishlist():
 
     # Get the item ID from the request data
+    username = get_session_username()
+
     data = request.get_json()
     item_id = data['itemId']
     data = get_product_data(all_items, item_id)
 
     # try to add the item to the wishlist in the database
     try:
-        db.reference("/wishlist").child(item_id).set(data)
+        db.reference(f"users/{username}/wishlist").child(item_id).set(data)
         return jsonify({'success': True, 'message': 'Item added to cart successfully'}), 200
     
     # If an error occurs, return the error message
@@ -115,8 +126,7 @@ def add_to_wishlist():
 def add_to_cart():
 
     # Get the user object from Firebase Authentication and login session
-    user = auth.get_user(session.get("user_id"))
-    username = user.display_name
+    username = get_session_username()
 
     # Get the item ID and quantity from the request data
     data = request.get_json()
@@ -149,18 +159,14 @@ def product(gender, item_id):
 def cart():
 
     # Get the user ID from the session
-    user_id = session.get("user_id")
+    username = get_session_username()
 
     # If user is not logged in, redirect to login page
-    if not user_id:
+    if not username:
         return redirect(url_for('auth.auth_login'))
-    
-    # Get the user object from Firebase Authentication
-    user = auth.get_user(user_id)
 
     # Get the cart items from the database and update the neccessary lists and values to render the cart page
     product_data_list = []
-    username = user.display_name
     ref = db.reference(f"/users/{username}/cart")
     cart_items = ref.get()
     total_sum, tax, grand_total, shipping = 0, 0, 0, 0
@@ -272,6 +278,7 @@ def get_orders(username):
 
 # function to get the number of orders from the database
 def len_orders(username):
+    
     orders = db.reference(f"/users/{username}/orders").get()
     if orders:
         return len(orders)
@@ -281,10 +288,7 @@ def len_orders(username):
 @app.route('/complete_order', methods=['POST'])
 def complete_order():
 
-    # Get the user ID from the session
-    user_id = session.get("user_id")
-    user = auth.get_user(user_id)
-    username = user.display_name
+    username = get_session_username()
 
     # Get the cart items from the database
     cart_items = db.reference(f"/users/{username}/cart").get()
@@ -344,9 +348,7 @@ def get_order_details(username, order_id):
 @app.route('/order_details/<order_id>')
 def order_details(order_id):
 
-    # Get the user object from Firebase Authentication and login session
-    user = auth.get_user(session.get("user_id"))
-    username = user.display_name
+    username = get_session_username()
     order = get_order_details(username, order_id)
 
     # If order exists, render the order details page
@@ -358,21 +360,26 @@ def order_details(order_id):
 # Route for profile page
 @app.route('/profile')
 def profile():
-    # Get the user object from Firebase Authentication and login session
-    user = auth.get_user(session.get("user_id"))
-    display_name = user.display_name
+
+    username = get_session_username()
 
     # update the user object with the data from the database
-    user = db.reference("/users").child(user.display_name).get()
-    orders = get_orders(display_name)
+    user = db.reference("/users").child(username).get()
+    orders = get_orders(username)
 
-    return render_template("profile.html", user = user, orders = orders, display_name = display_name)
+    return render_template("profile.html", user = user, orders = orders, display_name = username)
 
 # Route for wishlist page
 @app.route('/wishlist')
 def wishlist():
-    wishlist = get_data(1)
+
+    username = get_session_username()
+
+    # Get the wishlist items from the database
+    wishlist = db.reference(f"/users/{username}/wishlist").get()
+
     return render_template("wishlist.html", fe_items = wishlist)
+
 
 # Function to delete user from Firebase Authentication and Realtime Database
 def delete_user(user_id):
