@@ -43,7 +43,10 @@ Welcome to Glamify Clothing Store! This is an online platform where users can sh
    - Install dependencies using `pip install -r requirements.txt` if you're using windows.
 
 2. **Configuration**:
-   - Configure environment variables for database connection, API keys, etc.
+   - Configure environment variables and files for firebase database connection, API keys, etc.
+   - Create a new file in the "helpers" folder and name it dictionary_dataset.py and type in `dataset =`
+   - Open "dictionary_dataset.txt" from the static/dataset folder.
+   - Hit `Ctrl+a` followed by `Ctrl+c` and then paste it in the .py file that you just created. 
 
 3. **Run the Application**:
    - Start the server using `flask run --debug`.
