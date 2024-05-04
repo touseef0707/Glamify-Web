@@ -278,7 +278,6 @@ def get_orders(username):
 
 # function to get the number of orders from the database
 def len_orders(username):
-    
     orders = db.reference(f"/users/{username}/orders").get()
     if orders:
         return len(orders)
