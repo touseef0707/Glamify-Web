@@ -27,26 +27,22 @@
         <div class="profile-details">
         
             <div class="profile-column" id="profile-info">
-                
-                <div>
-                    <h2>Personal Information</h2>
-                    <p id="username"><i class="fa-solid fa-user" style="color: #083e62;"></i><strong>{{display_name}}</strong></p>
-                    <p><strong>Full Name: </strong> {{ user.first_name+' '+user.last_name}}</p>
-                    <p><strong>Email: </strong><a href="mailto:" class="email">{{user.email}}</a></p>
-                    <p><strong>Phone: </strong> +971 522 774 769</p>
-                    <p><strong>Address: </strong> {{user.location}}</p>
-                    <div class="acc">
-                        <a href="/profile_edit" class="button">Edit Profile</a>
-                        <a href="/auth_logout" class="button">Logout</a>
-                    </div>
-                </div>
-                <div class="bg-image">
-                    <img src="static/images/bg6.jpg" alt="">
-                    <img src="static/images/bg7" alt="">
-                    <img src="static/images/bg8.jpg" alt="">
-                    
+                <h2 style="text-align: center;">Personal Information</h2>
+                <!-- <p id="username"><i class="fa-solid fa-user" style="color: #083e62;"></i><strong>{{display_name}}</strong></p> -->
+                <p id="username" style="text-align: center; margin-top: 20px;">
+                    <img src="static/images/pfp1.jpg" alt="" style="width: 100px; height: 100px; border-radius: 50%;">
+                    <strong style="display: block; margin-top: 10px;">{{display_name}}</strong>
+                </p>
+                <p><strong>Full Name: </strong> {{ user.first_name+' '+user.last_name}}</p>
+                <p><strong>Email: </strong><a href="mailto:" class="email">{{user.email}}</a></p>
+                <p><strong>Phone: </strong> +971 522 774 769</p>
+                <p><strong>Address: </strong> {{user.location}}</p>
+                <div class="acc"  style="text-align: center;">
+                    <a href="/profile_edit" class="button" style="width: 150px;">Edit Profile</a>
+                    <a href="/auth_logout" class="button" style="width: 150px;">Logout</a>
                 </div>
             </div>
+
             <div class="profile-column" id="order-history">
                 <h2>Order History</h2>
                 <table class="order-table">
@@ -60,13 +56,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for order in orders %}
+                        {% for order_id, order in orders.items() %}
                         <tr>
-                            <td>{{ order.id }}</td>
+                            <td>{{ order_id }}</td>
                             <td>{{ order.date }}</td>
                             <td>AED {{ order.total }}</td>
                             <td>{{ order.status }}</td>
-                            <td><a class="button" href="/order_details">View Order</a></td>
+                            <td><a class="button" href="/order_details/{{order_id}}">View Order</a></td>
                         </tr>
                         {% endfor %}
                     </tbody>
