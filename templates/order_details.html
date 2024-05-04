@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% block title %} <title>Order Details</title> {% endblock %}
 {% block css_file %}
-<link rel="stylesheet" href="static/css/home.css">
-<link rel="stylesheet" href="static/css/order_details.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/order_details.css') }}">
 {% endblock %}
 
 {% block navlinks %}
@@ -27,7 +27,6 @@
             <table class="table">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Product Image</th>
                     <th scope="col">Product Name</th>
                     <th scope="col">Price</th>
@@ -38,15 +37,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                    {% for i in range(5)%}
+                    {% for product_id, product in order.products.items() %}
                         <tr>
-                            <th scope="row">{{i+1}}</th>
-                            <td><img src="static/images/models/modelone.jpg" alt="Product 1"></td>
-                            <td><h3>Product Name {{i+1}}</h3></td>
-                            <td><p>$10.00</p></td>
-                            <td><p>1</p></td>
-                            <td><p>$10.00</p></td>
-                            <td><a href="">View Product</a></td>
+                            <td><img src="{{product['link']}}" alt="{{product.productDisplayName}}"></td>
+                            <td><h3>{{ product.productDisplayName }}</h3></td>
+                            <td><p>${{ product.price }}</p></td>
+                            <td><p>{{ product.quantity }}</p></td>
+                            <td><p>${{ product.price * product.quantity }}</p></td>
+                            <td><a class="enclosed" href="{{ url_for('product', gender=product['gender'], item_id=product_id) }}">View Product</a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -61,41 +60,41 @@
                         <thead>
                             <tr>
                                 <th>Order ID</th>
-                                <td>123456</td>
+                                <td>{{order.order_id}}</td>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <th>Order Date</th>
-                                <td>12/12/2021</td>
+                                <td>{{order.date}}</td>
                             </tr>
                             <tr>
                                 <th>Order Status</th>
-                                <td>Delivered</td>
+                                <td>{{order.status}}</td>
                             </tr>
                             <tr>
                                 <th>Shipping Address</th>
-                                <td>Dibba-Al-Fujairah</td>
+                                <td>{{order.address}}</td>
                             </tr>
                             <tr>
                                 <th>Subtotal</th>
-                                <td>$100.00</td>
+                                <td>${{order.sub_total}}</td>
                             </tr>
                             <tr>
                                 <th>Tax</th>
-                                <td>$0.00</td>
+                                <td>${{order.tax}}</td>
                             </tr>
                             <tr>
                                 <th>Shipping</th>
-                                <td>$10.00</td>
+                                <td>${{order.shipping}}</td>
                             </tr>
                             <tr>
                                 <th>Coupon Applied</th>
-                                <td>0%</td>
+                                <td>$0</td>
                             </tr>
                             <tr>
                                 <th>Total</th>
-                                <td>$110.00</td>
+                                <td>${{order.total}}</td>
                             </tr>
                         </tbody>
                    </table>
@@ -103,4 +102,10 @@
             </div>
     </section>
 
+{% endblock %}
+
+{% block logo %} 
+<div class="logo">
+    <a href="/"><img src="{{url_for('static', filename='images/logos/logo.png')}}" alt="logo" class="logo"></a>
+</div>
 {% endblock %}
