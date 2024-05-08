@@ -1135,5 +1135,11 @@ body .signinhtml{
 #about-header h2,
 #about-header p{
     color: white;
-    z-index: 1;
+    z-index: 2;
 }
+
+#about-heder h3{
+    color: white;
+}
+
+ 
