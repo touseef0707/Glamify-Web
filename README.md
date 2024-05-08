@@ -1,6 +1,7 @@
 # Glamify Clothing Store
 
 Welcome to Glamify Clothing Store! This is an online platform where users can shop for trendy clothing items and accessories. Below is an overview of the features and functionalities available in the store:
+This project was done as a part of course requiremnt in the university.
 
 ## Features
 
