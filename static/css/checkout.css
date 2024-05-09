@@ -11,7 +11,7 @@ body {
     text-align: center; /* Aligns content to the center horizontally */
     margin-bottom: 20px; /* Adds some space between the image and the checkout container */
 }
-
+/* Align the checkout container */
 .checkout-container {
     display: grid;
     grid-template-columns: 1fr 0.7fr;
@@ -20,7 +20,7 @@ body {
     margin: auto;
     overflow-x: hidden;
 }
-
+/* Design the section in checkout page */
 .checkout-section {
     border: 1px solid cyan;
     padding: 20px;
